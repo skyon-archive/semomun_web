@@ -5,7 +5,7 @@ import { MainPage } from "./MainPage";
 
 export const Router = () => {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Header />
       <main>
         <Routes>
