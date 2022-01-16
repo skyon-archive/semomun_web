@@ -15,12 +15,12 @@ export const Header = () => {
         <Link to="/contact" className="text-white text-sm text-medium px-2">
           기업문의
         </Link>
-        <Link to="mypage" className="text-white text-sm text-medium px-2">
+        {/*<Link to="mypage" className="text-white text-sm text-medium px-2">
           마이페이지
         </Link>
         <button className="text-brand-1 text-sm text-medium rounded-full bg-white px-4 py-1">
           로그아웃
-        </button>
+  </button>*/}
       </div>
 
       <div className="max-w-6xl w-full h-24 grid grid-cols-[250px_1fr_250px] justify-items-center items-center">
@@ -45,10 +45,16 @@ export const Header = () => {
           </form>
         </div>
         <div className="flex h-full w-full space-x-3 justify-center items-center">
-          <button className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium">
+          <button
+            className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium"
+            onClick={() => alert("결제 기능은 준비 중입니다 :)")}
+          >
             페이 충전
           </button>
-          <button className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium">
+          <button
+            className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium"
+            onClick={() => alert("결제 기능은 준비 중입니다 :)")}
+          >
             장바구니
           </button>
         </div>

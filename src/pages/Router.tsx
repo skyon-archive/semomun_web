@@ -13,7 +13,7 @@ export const Router = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main>
+      <main className="min-h-screen-18">
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/contact" element={<ContactPage />} />

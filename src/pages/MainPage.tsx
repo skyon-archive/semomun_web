@@ -32,7 +32,7 @@ export const MainPage = () => {
         {categories.map((category, idx) => (
           <div key={category}>
             <p className="font-bold">{category}</p>
-            <div className="flex mt-2 space-x-2">
+            <div className="flex mt-2 space-x-2 h-32">
               {(images[idx] ?? []).map((img) => (
                 <img
                   key={img}
