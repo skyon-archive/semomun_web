@@ -7,7 +7,7 @@ export const Header = () => {
   const ref = useRef<HTMLInputElement>(null);
 
   return (
-    <div className="max-w-container flex flex-col items-center">
+    <div className="max-w-container flex flex-col items-center border-b border-gray-300">
       <div className="w-full h-8 bg-brand-1 flex justify-end items-center space-x-2 pr-4">
         <Link to="/faq" className="text-white text-sm text-medium px-2">
           FAQ
