@@ -37,7 +37,7 @@ export const MainPage = () => {
                 <img
                   key={img}
                   alt="bookcover"
-                  src={`${process.env.REACT_APP_API_URL}/images/bookcover/128x128/${img}`}
+                  src={`${process.env.REACT_APP_API_URL}/images/bookcover/256x256/${img}`}
                 />
               ))}
             </div>
