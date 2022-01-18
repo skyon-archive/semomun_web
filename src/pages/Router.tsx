@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { useThinHeader } from "../hooks";
@@ -9,6 +9,7 @@ import { LandingPage } from "./LandingPage";
 import { LoginPage } from "./LoginPage";
 import { MainPage } from "./MainPage";
 import { SearchPage } from "./SearchPage";
+//import { MyPage } from "./MyPage";
 
 export const Router = () => {
   const thinHeader = useThinHeader();
@@ -24,6 +25,8 @@ export const Router = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/landing" element={<LandingPage />} />
           <Route path="/search" element={<SearchPage />} />
+          {/*<Route path="/mypage/*" element={<MyPage />} />*/}
+          <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
       </main>
       <Footer />

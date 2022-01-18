@@ -11,6 +11,9 @@ module.exports = {
         "screen-12": "calc( 100vh - 12rem )",
         "screen-18": "calc( 100vh - 18rem )",
       },
+      width: {
+        30: "7.5rem",
+      },
     },
   },
   plugins: [],
