@@ -6,6 +6,7 @@ module.exports = {
         "brand-1": "#5AB4B1",
         "brand-2": "#3D706E",
         "brand-3": "#EFF8F7",
+        "brand-4": "#34938F",
       },
       minHeight: {
         "screen-12": "calc( 100vh - 12rem )",
