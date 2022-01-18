@@ -1,5 +1,7 @@
 import { ComponentType, FC, SVGProps } from "react";
 import { ReactComponent as Download } from "../assets/icons/icon-download.svg";
+import { ReactComponent as ChevronDown } from "../assets/icons/icon-chevron-down.svg";
+import { ReactComponent as ChevronUp } from "../assets/icons/icon-chevron-up.svg";
 
 function withStroke<T extends SVGProps<SVGSVGElement>>(
   Icon: ComponentType<T>
@@ -11,4 +13,6 @@ function withStroke<T extends SVGProps<SVGSVGElement>>(
 
 export const Icon = {
   Download: withStroke(Download),
+  ChevronDown: withStroke(ChevronDown),
+  ChevronUp: withStroke(ChevronUp),
 };
