@@ -5,6 +5,7 @@ module.exports = {
       colors: {
         "brand-1": "#5AB4B1",
         "brand-2": "#3D706E",
+        "brand-3": "#EFF8F7",
       },
       minHeight: {
         "screen-18": "calc( 100vh - 18rem )",
