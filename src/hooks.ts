@@ -30,3 +30,9 @@ export function useQueryString(queryObject: any = {}) {
   };
   return stringify(searchObject, { addQueryPrefix: true, encode: false });
 }
+
+export const useThinHeader = () => {
+  const { pathname } = useLocation();
+  const thinPathnames = ["/contact", "/faq", "/login"];
+  return thinPathnames.some((thinPath) => pathname.startsWith(thinPath));
+};

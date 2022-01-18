@@ -4,7 +4,7 @@ import { Icon } from "../components/Icon";
 export const ContactPage = () => {
   return (
     <div className="w-full flex justify-center space-y-16">
-      <div className="max-w-5xl bg-brand-3 flex flex-col items-center w-full min-h-screen-18 space-y-10 pt-10">
+      <div className="max-w-5xl bg-brand-3 flex flex-col items-center w-full min-h-screen-12 space-y-10 pt-10">
         <h2 className="font-bold text-3xl">기업문의</h2>
         <p className="text-2xl font-bold text-brand-1">
           <span className="text-5xl">세</span>상의{" "}
