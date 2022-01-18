@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { fetcher, useQueriesConsistent } from "../plugins/react-query";
 import { CategoryInfo, NestedWorkbooks } from "../types";
+import mainImage from "../assets/images/main_image.png";
 
 export const MainPage = () => {
   const { data: category_info } = useQuery<CategoryInfo>(
@@ -28,7 +29,11 @@ export const MainPage = () => {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <div className="flex flex-col space-y-6 mt-4">
+      <div className="w-full bg-brand-1 flex justify-center items-center h-96">
+        <p className="text-white font-bold text-xl">세상의 모든 문제를 담다</p>
+        <img src={mainImage} alt="아이패드 이미지" className="h-80" />
+      </div>
+      <div className="flex flex-col space-y-6 mt-6">
         {categories.map((category, idx) => (
           <div key={category}>
             <p className="font-bold">{category}</p>
