@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Icon } from "../components/Icon";
 
 export const ContactPage = () => {
@@ -42,12 +43,15 @@ export const ContactPage = () => {
           <br />
           mobile: 010-7592-2316
         </p>
-        <button>
-          <div className="flex px-3 py-2 text-white space-x-2 rounded-md bg-brand-1">
-            <Icon.Download />
-            <p className="font-sm">사업제안서</p>
-          </div>
-        </button>
+        <Link
+          className="flex px-3 py-2 text-white space-x-2 rounded-md bg-brand-1"
+          to="/skyon_proposal.pdf"
+          download="스카이온에듀 서비스제휴제안서.pdf"
+          target="_blank"
+        >
+          <Icon.Download />
+          <p className="font-sm">사업제안서</p>
+        </Link>
       </div>
     </div>
   );
