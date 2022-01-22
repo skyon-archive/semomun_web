@@ -36,9 +36,9 @@ export const Header = () => {
           <Link to="/">
             <img src={logo} alt="logo" className="w-32" />
           </Link>
-          <div className="flex items-center justify-center">
+          <div className="w-full flex items-center justify-center">
             <form
-              className="w-[450px] h-10 rounded-full border-brand-1 border-4 flex justify-center"
+              className="w-full max-w-[450px] h-10 rounded-full border-brand-1 border-4 flex justify-center"
               onSubmit={(e) => {
                 e.preventDefault();
                 navigate(`/search?keyword=${ref.current?.value}`);
