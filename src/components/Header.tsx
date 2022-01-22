@@ -32,11 +32,13 @@ export const Header = () => {
       </div>
 
       {!thin && (
-        <div className="max-w-6xl w-full h-24 grid grid-cols-[250px_1fr_250px] justify-items-center items-center">
-          <Link to="/">
-            <img src={logo} alt="logo" className="w-32" />
-          </Link>
-          <div className="w-full flex items-center justify-center">
+        <div className="max-w-6xl w-full h-24 flex items-center">
+          <div className="w-64 flex items-center justify-center flex-shrink-0">
+            <Link to="/">
+              <img src={logo} alt="logo" className="w-32" />
+            </Link>
+          </div>
+          <div className="flex items-center justify-center flex-grow flex-shrink min-w-[150px]">
             <form
               className="w-full max-w-[450px] h-10 rounded-full border-brand-1 border-4 flex justify-center"
               onSubmit={(e) => {
@@ -45,7 +47,7 @@ export const Header = () => {
               }}
             >
               <input
-                className="flex-grow mx-3 my-1 focus:outline-0"
+                className="flex-grow mx-3 my-1 focus:outline-0 flex-shrink w-full"
                 ref={ref}
               />
               <button
@@ -56,15 +58,15 @@ export const Header = () => {
               </button>
             </form>
           </div>
-          <div className="flex h-full w-full space-x-3 justify-center items-center">
+          <div className="flex h-full space-x-3 justify-center items-center w-64 flex-shrink-0">
             <button
-              className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium"
+              className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium h-fit"
               onClick={() => alert("결제 기능은 준비 중입니다 :)")}
             >
               페이 충전
             </button>
             <button
-              className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium"
+              className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium h-fit"
               onClick={() => alert("결제 기능은 준비 중입니다 :)")}
             >
               장바구니
