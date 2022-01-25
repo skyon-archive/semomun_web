@@ -1,11 +1,11 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { useThinHeader } from "../hooks";
 
 export const Header = () => {
   const navigate = useNavigate();
-  const ref = useRef<HTMLInputElement>(null);
+  const [keyword, setKeyword] = useState("");
   const thin = useThinHeader();
 
   return (
@@ -43,12 +43,13 @@ export const Header = () => {
               className="w-full max-w-[450px] h-10 rounded-full border-brand-1 border-4 flex justify-center"
               onSubmit={(e) => {
                 e.preventDefault();
-                navigate(`/search?keyword=${ref.current?.value}`);
+                navigate(`/search?keyword=${keyword}`);
               }}
             >
               <input
                 className="flex-grow mx-3 my-1 focus:outline-0 flex-shrink w-full"
-                ref={ref}
+                onChange={(e) => setKeyword(e.target.value)}
+                value={keyword}
               />
               <button
                 type="submit"
