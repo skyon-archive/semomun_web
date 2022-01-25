@@ -13,6 +13,7 @@ module.exports = {
         "screen-18": "calc( 100vh - 18rem )",
       },
       width: {
+        26: "6.5rem",
         30: "7.5rem",
       },
     },

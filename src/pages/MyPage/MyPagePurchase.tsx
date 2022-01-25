@@ -36,17 +36,18 @@ export const MyPagePurchase = () => {
       <div className="flex flex-col mx-6">
         {range(3).map((i) => (
           <div
-            className={`flex ${
+            className={`flex py-3 px-6 ${
               i === 0 ? "" : "border-t border-gray-300"
-            } py-3 px-6`}
+            }`}
           >
-            <div className="flex w-32 items-center justify-center">
+            <div className="flex w-26 items-center justify-center">
               <img
                 src="https://saemomoon.com/images/bookcover/256x256/50670920-68d0-47cd-be2e-cfe4e44be17c.png"
                 alt="bookcover"
+                className="w-26 h-32 object-cover"
               />
             </div>
-            <div className="pl-3 text-sm space-y-1 flex-grow">
+            <div className="pl-6 text-sm space-y-1 flex-grow">
               <p>가나다라마바사아자차카타파하 한글 깨치기</p>
               <p className="font-bold">1,000,000 원</p>
               <p className="pt-1">2222년 22년 22일 15:40</p>

@@ -43,6 +43,7 @@ export const MainPage = () => {
                   key={img}
                   alt="bookcover"
                   src={`${process.env.REACT_APP_API_URL}/images/bookcover/256x256/${img}`}
+                  className="h-32 w-26 object-cover"
                 />
               ))}
             </div>
