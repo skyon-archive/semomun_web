@@ -16,6 +16,9 @@ module.exports = {
         26: "6.5rem",
         30: "7.5rem",
       },
+      gridTemplateColumns: {
+        "auto-6": "repeat(6, auto)",
+      },
     },
   },
   plugins: [],
