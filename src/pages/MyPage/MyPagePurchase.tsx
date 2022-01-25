@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { range } from "../../utils";
 
 export const MyPagePurchase = () => {
+  const navigate = useNavigate();
   const months = ["3개월", "6개월", "9개월", "12개월"];
   return (
     <div className="w-full pt-5 space-y-12">
@@ -52,11 +54,14 @@ export const MyPagePurchase = () => {
               <p className="font-bold">1,000,000 원</p>
               <p className="pt-1">2222년 22년 22일 15:40</p>
             </div>
-            <div className="text-sm text-center flex flex-col mt-1">
+            <div
+              className="text-sm text-center flex flex-col pt-1 px-1 hover:bg-gray-100"
+              onClick={() => navigate(`${520225164325}`)}
+            >
               <p>세모페이</p>
               <div className="flex-grow flex flex-col justify-center">
                 <p>520225164325</p>
-                <p>주문 상세 내역 →</p>
+                <button>주문 상세 내역 →</button>
               </div>
             </div>
           </div>

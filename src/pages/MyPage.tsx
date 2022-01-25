@@ -5,6 +5,7 @@ import { MyPagecharge } from "./MyPage/MyPageCharge";
 import { MyPageHome } from "./MyPage/MyPageHome";
 import { MyPageInfo } from "./MyPage/MyPageInfo";
 import { MyPagePurchase } from "./MyPage/MyPagePurchase";
+import { MyPagePurchaseDetail } from "./MyPage/MyPagePurchaseDetail";
 
 const data = [
   { text: "HOME", route: "home" },
@@ -50,6 +51,7 @@ export const MyPage = () => {
         </div>
         <Routes>
           <Route path="/home" element={<MyPageHome />} />
+          <Route path="/purchase/:id" element={<MyPagePurchaseDetail />} />
           <Route path="/purchase" element={<MyPagePurchase />} />
           <Route path="/charge" element={<MyPagecharge />} />
           <Route path="/info" element={<MyPageInfo />} />
