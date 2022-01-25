@@ -3,7 +3,7 @@ import logo from "../assets/images/skyon_logo.png";
 
 export const Footer = () => {
   return (
-    <div className="max-w-container flex items-center h-40">
+    <div className="max-w-container flex items-center h-40 drop-shadow-[0_-2px_10px_#0001] bg-white">
       <img src={logo} className="h-20 ml-12 mr-8" alt="skyon logo" />
       <div className="text-sm">
         <div>
