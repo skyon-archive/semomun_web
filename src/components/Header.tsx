@@ -1,12 +1,18 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { useThinHeader } from "../hooks";
 
 export const Header = () => {
   const navigate = useNavigate();
+  const { search } = useLocation();
   const [keyword, setKeyword] = useState("");
   const thin = useThinHeader();
+
+  useEffect(() => {
+    const params = new URLSearchParams(search);
+    setKeyword(params.get("keyword") ?? "");
+  }, [search]);
 
   return (
     <div className="max-w-container flex flex-col items-center border-b border-gray-300">
