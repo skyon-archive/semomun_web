@@ -10,6 +10,7 @@ module.exports = {
         littleblack: "rgba(0, 0, 0, 0.5)",
       },
       height: {
+        4.5: "1.125rem",
         38: "9.5rem",
       },
       minHeight: {

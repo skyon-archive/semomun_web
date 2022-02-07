@@ -6,3 +6,6 @@ export const zeroPad = (data: any, len: number) => {
   const zero = len - data.toString().length;
   return range(zero > 0 ? zero : 0).join("0") + data;
 };
+
+export const numberWithCommas = (x: number) =>
+  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { useThinHeader } from "../hooks";
+//import { ChargePage } from "./ChargePage";
 import { ContactPage } from "./ContactPage";
 import { FAQPage } from "./FAQPage";
 import { LandingPage } from "./LandingPage";
@@ -34,6 +35,7 @@ export const Router = () => {
           {/*<Route path="/purchase" element={<PurchasePage />} />*/}
           <Route path="/search" element={<SearchPage />} />
           {/*<Route path="/mypage/*" element={<MyPage />} />*/}
+          {/*<Route path="/charge" element={<ChargePage />} />*/}
           <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
       </main>
