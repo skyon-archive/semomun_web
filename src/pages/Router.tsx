@@ -10,6 +10,7 @@ import { LoginPage } from "./LoginPage";
 import { MainPage } from "./MainPage";
 import { SearchPage } from "./SearchPage";
 //import { MyPage } from "./MyPage";
+//import { CartPage } from "./CartPage";
 
 export const Router = () => {
   const thinHeader = useThinHeader();
@@ -24,6 +25,7 @@ export const Router = () => {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/landing" element={<LandingPage />} />
+          {/*<Route path="/cart" element={<CartPage />} />*/}
           <Route path="/search" element={<SearchPage />} />
           {/*<Route path="/mypage/*" element={<MyPage />} />*/}
           <Route path="/*" element={<Navigate to="/" />} />
