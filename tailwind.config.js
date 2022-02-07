@@ -7,6 +7,7 @@ module.exports = {
         "brand-2": "#3D706E",
         "brand-3": "#EFF8F7",
         "brand-4": "#34938F",
+        littleblack: "rgba(0, 0, 0, 0.5)",
       },
       height: {
         38: "9.5rem",
