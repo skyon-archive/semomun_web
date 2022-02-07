@@ -12,6 +12,7 @@ import { SearchPage } from "./SearchPage";
 //import { MyPage } from "./MyPage";
 //import { CartPage } from "./CartPage";
 //import { PurchasePage } from "./PurchasePage";
+//import { PurchaseDonePage } from "./PurchaseDonePage";
 
 export const Router = () => {
   const thinHeader = useThinHeader();
@@ -19,7 +20,9 @@ export const Router = () => {
   return (
     <div className="min-h-screen flex flex-col min-w-max lg:min-w-0">
       <Header />
-      <main className={thinHeader ? "min-h-screen-12" : "min-h-screen-18"}>
+      <main
+        className={thinHeader ? "min-h-screen-12" : "min-h-screen-18 h-fit"}
+      >
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/contact" element={<ContactPage />} />
@@ -27,6 +30,7 @@ export const Router = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/landing" element={<LandingPage />} />
           {/*<Route path="/cart" element={<CartPage />} />*/}
+          {/*<Route path="/purchase/done" element={<PurchaseDonePage />} />*/}
           {/*<Route path="/purchase" element={<PurchasePage />} />*/}
           <Route path="/search" element={<SearchPage />} />
           {/*<Route path="/mypage/*" element={<MyPage />} />*/}
