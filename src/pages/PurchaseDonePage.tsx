@@ -4,8 +4,8 @@ import whiteLogo from "../assets/images/white_logo.png";
 
 export const PurchaseDonePage = () => {
   return (
-    <div className="w-full min-h-full bg-gray-100 flex justify-center py-12">
-      <div className="bg-white drop-shadow-[2px_0px_8px_#0002] rounded-lg max-w-2xl w-full flex flex-col stroke-0 items-center py-8">
+    <div className="w-full min-h-screen-18 bg-gray-100 flex justify-center py-12">
+      <div className="bg-white drop-shadow-[2px_0px_8px_#0002] rounded-lg max-w-2xl w-full flex flex-col stroke-0 items-center py-8 h-fit">
         <Icon.BookDownload className="w-14 h-14" />
         <p className="font-medium py-4">구매가 완료되었습니다.</p>
 
@@ -29,12 +29,12 @@ export const PurchaseDonePage = () => {
         <p className="text-sm mt-1">구매 후 남은 페이는 환불 신청가능합니다.</p>
 
         <div className="flex space-x-2 mt-6">
-          <button className="bg-brand-1 rounded text-white flex items-center justify-between py-1 w-30 px-1">
+          <button className="bg-brand-1 rounded text-white flex items-center justify-between py-1.5 w-30 px-1">
             <Icon.Books className="stroke-white stroke-1 w-6 h-6" />
             <p className="text-sm">구매내역</p>
             <Icon.ChevronRight className="w-4 h-4" />
           </button>
-          <button className="bg-brand-1 rounded text-white flex items-center justify-between py-1 w-30 px-1">
+          <button className="bg-brand-1 rounded text-white flex items-center justify-between py-1.5 w-30 px-1">
             <img
               src={whiteLogo}
               alt="semomun logo"
