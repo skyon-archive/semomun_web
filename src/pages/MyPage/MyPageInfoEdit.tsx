@@ -78,8 +78,8 @@ export const MyPageInfoEdit = () => {
             각종 할인혜택, 제휴이벤트/기획전 등의 내용을 받으시겠습니까?
           </p>
           <div className="flex flex-col space-y-3 py-6">
-            <Switch label="SMS" labelClassName="w-12" />
-            <Switch label="E-mail" labelClassName="w-12" />
+            <Switch label="SMS" labelClassName="w-12" className="w-20" />
+            <Switch label="E-mail" labelClassName="w-12" className="w-20" />
           </div>
           <p className="text-gray-500">
             회원가입, 주문배송, 약관안내, 회사 주요정책 변경 관련 내용은

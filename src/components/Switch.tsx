@@ -23,7 +23,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             {label}
           </label>
         )}
-        <label className={className}>
+        <label className={`switch ${className}`}>
           <input
             type="checkbox"
             id={id}
@@ -33,6 +33,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
           />
           <span className="switch-left">동의</span>
           <span className="switch-right">거부</span>
+          <span className="switch-slider" />
         </label>
       </div>
     );

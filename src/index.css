@@ -38,18 +38,30 @@ code {
     @apply flex items-center space-x-2;
   }
 
+  .switch {
+    @apply flex justify-around py-0.5 bg-brand-2 rounded h-6 relative;
+  }
   .switch-left {
-    @apply rounded-l px-3 py-1 transition-all transform duration-200;
+    @apply transition-all transform duration-200 z-20;
   }
   .switch-right {
-    @apply rounded-r px-3 py-1 transition-all transform duration-200;
+    @apply transition-all transform duration-200 z-20;
   }
   input:checked + .switch-left,
   input:not(:checked) + .switch-left + .switch-right {
-    @apply bg-brand-1 text-white;
+    @apply text-white;
   }
   input:not(:checked) + .switch-left,
   input:checked + .switch-left + .switch-right {
-    @apply bg-brand-2 text-gray-600;
+    @apply text-gray-600;
+  }
+  .switch-slider {
+    @apply absolute z-10 bg-brand-1 inset-y-0 rounded transform transition-all duration-200 ease-out;
+  }
+  input:checked + .switch-left + .switch-right + .switch-slider {
+    @apply left-0 right-2/4;
+  }
+  input:not(:checked) + .switch-left + .switch-right + .switch-slider {
+    @apply left-2/4 right-0;
   }
 }
