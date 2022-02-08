@@ -15,3 +15,41 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@layer base {
+  select {
+    @apply focus:outline-none;
+  }
+}
+
+@layer components {
+  .textfield {
+    @apply px-3 h-8 border border-gray-200 rounded placeholder-gray-400
+           disabled:bg-gray-100 disabled:text-gray-400 focus:border-brand-1 focus:ring-0 text-sm;
+  }
+  .select {
+    @apply px-1 h-8 border border-gray-200 rounded placeholder-gray-400
+           disabled:bg-gray-100 disabled:text-gray-400 focus:border-brand-1 focus:ring-0;
+  }
+  .label-col {
+    @apply flex flex-col space-y-1;
+  }
+  .label-row {
+    @apply flex items-center space-x-2;
+  }
+
+  .switch-left {
+    @apply rounded-l px-3 py-1 transition-all transform duration-200;
+  }
+  .switch-right {
+    @apply rounded-r px-3 py-1 transition-all transform duration-200;
+  }
+  input:checked + .switch-left,
+  input:not(:checked) + .switch-left + .switch-right {
+    @apply bg-brand-1 text-white;
+  }
+  input:not(:checked) + .switch-left,
+  input:checked + .switch-left + .switch-right {
+    @apply bg-brand-2 text-gray-600;
+  }
+}

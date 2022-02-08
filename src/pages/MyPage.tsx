@@ -56,7 +56,7 @@ export const MyPage = () => {
           <Route path="/purchase/:id" element={<MyPagePurchaseDetail />} />
           <Route path="/purchase" element={<MyPagePurchase />} />
           <Route path="/semopay" element={<MyPageSemopay />} />
-          <Route path="/info" element={<MyPageInfo />} />
+          <Route path="/info/*" element={<MyPageInfo />} />
           <Route path="/announce" element={<MyPageAnnounce />} />
           <Route path="/*" element={<Navigate to="home" />} />
         </Routes>
