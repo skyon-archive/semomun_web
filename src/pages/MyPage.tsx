@@ -26,7 +26,7 @@ export const MyPage = () => {
           {data.map(({ text, route }) => {
             const selected = pathname.startsWith(`/mypage/${route}`);
             return (
-              <Link to={route}>
+              <Link to={route} key={route}>
                 <svg viewBox="0 0 119 48" className="w-30 h-12">
                   <Icon.CurvyButton
                     className={
