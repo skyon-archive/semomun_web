@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { MyPageInfoEdit } from "./MyPageInfoEdit";
+import { MyPageWithdraw } from "./MyPageWithdraw";
 
 export const MyPageInfo = () => {
   const tabs = [
@@ -27,7 +28,7 @@ export const MyPageInfo = () => {
       </div>
       <Routes>
         <Route path="/edit" element={<MyPageInfoEdit />} />
-        <Route path="/withdraw" element={<></>} />
+        <Route path="/withdraw" element={<MyPageWithdraw />} />
         <Route path="/*" element={<Navigate to="edit" />} />
       </Routes>
     </div>
