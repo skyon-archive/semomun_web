@@ -1,17 +1,19 @@
 import React from "react";
 import { Link, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Icon } from "../components/Icon";
-import { MyPagecharge } from "./MyPage/MyPageCharge";
+import { MyPageAnnounce } from "./MyPage/MyPageAnnounce";
 import { MyPageHome } from "./MyPage/MyPageHome";
 import { MyPageInfo } from "./MyPage/MyPageInfo";
-import { MyPagePurchase } from "./MyPage/MyPagePurchase";
+import { MyPageSemopay } from "./MyPage/MyPageSemopay";
 import { MyPagePurchaseDetail } from "./MyPage/MyPagePurchaseDetail";
+import { MyPagePurchase } from "./MyPage/MyPagePurchase";
 
 const data = [
   { text: "HOME", route: "home" },
   { text: "구매 내역", route: "purchase" },
-  { text: "충전 내역", route: "charge" },
+  { text: "세모페이", route: "semopay" },
   { text: "내 정보 관리", route: "info" },
+  { text: "공지사항", route: "announce" },
 ];
 
 export const MyPage = () => {
@@ -53,8 +55,9 @@ export const MyPage = () => {
           <Route path="/home" element={<MyPageHome />} />
           <Route path="/purchase/:id" element={<MyPagePurchaseDetail />} />
           <Route path="/purchase" element={<MyPagePurchase />} />
-          <Route path="/charge" element={<MyPagecharge />} />
+          <Route path="/semopay" element={<MyPageSemopay />} />
           <Route path="/info" element={<MyPageInfo />} />
+          <Route path="/announce" element={<MyPageAnnounce />} />
           <Route path="/*" element={<Navigate to="home" />} />
         </Routes>
       </div>

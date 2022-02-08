@@ -1,7 +1,7 @@
 import React from "react";
 import { MonthSelector } from "../../components/MonthSelector";
 
-export const MyPagecharge = () => {
+export const MyPageSemopay = () => {
   const data = [
     {
       createdAt: "2022.01.07 12:03",
