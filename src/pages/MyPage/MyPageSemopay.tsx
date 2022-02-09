@@ -93,7 +93,7 @@ export const MyPageSemopay = () => {
             </p>,
           ])}
         </div>
-        <Pagination basePath="/mypage/semopay" total={3} />
+        <Pagination total={3} />
       </div>
     </div>
   );

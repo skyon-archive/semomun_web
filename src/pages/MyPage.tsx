@@ -58,6 +58,7 @@ export const MyPage = () => {
           <Route path="/semopay" element={<MyPageSemopay />} />
           <Route path="/info/*" element={<MyPageInfo />} />
           <Route path="/announce" element={<MyPageAnnounce />} />
+          <Route path="/announce/:id" element={<></>} />
           <Route path="/*" element={<Navigate to="home" />} />
         </Routes>
       </div>

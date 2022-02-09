@@ -1,18 +1,13 @@
 import React, { FC } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { range } from "../utils";
 
 export interface PaginationProps {
-  basePath: string;
   total: number;
   className?: string;
 }
 
-export const Pagination: FC<PaginationProps> = ({
-  basePath,
-  total,
-  className = "",
-}) => {
+export const Pagination: FC<PaginationProps> = ({ total, className = "" }) => {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const page = Number(params.get("page") ?? "1");
@@ -28,13 +23,13 @@ export const Pagination: FC<PaginationProps> = ({
   return (
     <div className={`flex space-x-3 ${className}`}>
       {list.map((i, idx) => (
-        <a
+        <Link
           key={idx}
           className={i === page ? "font-bold" : ""}
-          href={`${basePath}&page=${i}`}
+          to={`?page=${i}`}
         >
           {i}
-        </a>
+        </Link>
       ))}
     </div>
   );
