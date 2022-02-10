@@ -7,6 +7,7 @@ import { MyPageInfo } from "./MyPage/MyPageInfo";
 import { MyPageSemopay } from "./MyPage/MyPageSemopay";
 import { MyPagePurchaseDetail } from "./MyPage/MyPagePurchaseDetail";
 import { MyPagePurchase } from "./MyPage/MyPagePurchase";
+import { MyPageAnnounceDetail } from "./MyPage/MyPageAnnounceDetail";
 
 const data = [
   { text: "HOME", route: "home" },
@@ -58,7 +59,7 @@ export const MyPage = () => {
           <Route path="/semopay" element={<MyPageSemopay />} />
           <Route path="/info/*" element={<MyPageInfo />} />
           <Route path="/announce" element={<MyPageAnnounce />} />
-          <Route path="/announce/:id" element={<></>} />
+          <Route path="/announce/:id" element={<MyPageAnnounceDetail />} />
           <Route path="/*" element={<Navigate to="home" />} />
         </Routes>
       </div>
