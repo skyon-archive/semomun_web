@@ -55,19 +55,24 @@ export const CartPage = () => {
           </p>
         </div>
         <div className="w-full border border-black rounded-sm px-12 py-3">
-          <div className="flex items-center space-x-3 border-b border-black pb-3">
-            <input
-              type="checkbox"
-              id={id}
-              checked={selectAll}
-              onChange={(e) => {
-                setSelectAll(e.target.checked);
-                setSelect(data.map(() => true));
-              }}
-            />
-            <label htmlFor={id} className="text-sm">
-              전체 선택
-            </label>
+          <div className="flex items-center border-b border-black pb-3 justify-between">
+            <div className="flex items-center space-x-3">
+              <input
+                type="checkbox"
+                id={id}
+                checked={selectAll}
+                onChange={(e) => {
+                  setSelectAll(e.target.checked);
+                  setSelect(data.map(() => true));
+                }}
+              />
+              <label htmlFor={id} className="text-sm">
+                전체 선택
+              </label>
+            </div>
+            <button className="border-brand-2 rounded border text-sm px-2 py-0.5">
+              선택 삭제
+            </button>
           </div>
           {data.map((book, idx) => (
             <div
