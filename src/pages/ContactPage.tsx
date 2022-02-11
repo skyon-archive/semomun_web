@@ -1,17 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "../components/Icon";
+import { Semomun } from "../components/Semomun";
 
 export const ContactPage = () => {
   return (
     <div className="w-full flex justify-center space-y-16">
       <div className="max-w-5xl bg-brand-3 flex flex-col items-center w-full min-h-screen-12 space-y-10 py-10">
         <h2 className="font-bold text-3xl">기업문의</h2>
-        <p className="text-2xl font-bold text-brand-1">
-          <span className="text-5xl">세</span>상의{" "}
-          <span className="text-5xl">모</span>든{" "}
-          <span className="text-5xl">문</span>제집
-        </p>
+        <Semomun />
         <div className="flex flex-col space-y-4 text-sm">
           <p>안녕하세요.</p>
           <p className="font-semibold">
