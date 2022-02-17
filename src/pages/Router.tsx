@@ -23,7 +23,7 @@ export const Router = () => {
     <div className="min-h-screen flex flex-col lg:min-w-0 font-noto-sans">
       <Header />
       <main
-        className={`min-h-54 ${
+        className={`min-h-60 ${
           thinHeader ? "md:min-h-screen-48" : "md:min-h-screen-72 h-fit"
         }`}
       >

@@ -16,7 +16,7 @@ module.exports = {
       },
       minHeight: {
         "screen-48": "calc( 100vh - 12rem )",
-        "screen-54": "calc( 100vh - 13.5rem )",
+        "screen-60": "calc( 100vh - 15rem )",
         "screen-72": "calc( 100vh - 18rem )",
       },
       width: {
