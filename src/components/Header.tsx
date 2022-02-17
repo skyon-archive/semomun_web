@@ -5,6 +5,7 @@ import { useThinHeader } from "../hooks";
 
 export const Header = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { search } = useLocation();
   const [keyword, setKeyword] = useState("");
   const thin = useThinHeader();
@@ -13,6 +14,16 @@ export const Header = () => {
     const params = new URLSearchParams(search);
     setKeyword(params.get("keyword") ?? "");
   }, [search]);
+
+  if (pathname.startsWith("/landing"))
+    return (
+      <div className="w-full flex items-center justify-between text-brand-1 px-8 h-8">
+        <Link to="/" className="font-bold">
+          세모문
+        </Link>
+        {/*<Link to="/login">로그인</Link>*/}
+      </div>
+    );
 
   return (
     <div className="max-w-container flex flex-col items-center border-b border-gray-300">

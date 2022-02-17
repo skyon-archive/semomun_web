@@ -33,6 +33,6 @@ export function useQueryString(queryObject: any = {}) {
 
 export const useThinHeader = () => {
   const { pathname } = useLocation();
-  const thinPathnames = ["/contact", "/faq", "/login"];
+  const thinPathnames = ["/landing", "/contact", "/faq", "/login"];
   return thinPathnames.some((thinPath) => pathname.startsWith(thinPath));
 };

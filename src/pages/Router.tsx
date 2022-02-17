@@ -23,7 +23,7 @@ export const Router = () => {
     <div className="min-h-screen flex flex-col min-w-max lg:min-w-0">
       <Header />
       <main
-        className={thinHeader ? "min-h-screen-12" : "min-h-screen-18 h-fit"}
+        className={thinHeader ? "min-h-screen-48" : "min-h-screen-72 h-fit"}
       >
         <Routes>
           <Route path="/" element={<MainPage />} />
