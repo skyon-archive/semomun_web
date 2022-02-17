@@ -28,8 +28,8 @@ export const Accordion: FC<AccordionProps> = ({
         <button>{open ? <Icon.ChevronUp /> : <Icon.ChevronDown />}</button>
       </div>
       <div
-        className={`border rounded-b-xl pl-20 w-full transition-all duration-200 ${
-          open ? "py-6 border-brand-1" : "h-0 border-white"
+        className={`border rounded-b-xl pl-4 pr-4 md:pl-20 w-full transition-all duration-200 break-keep ${
+          open ? "py-4 md:py-6 border-brand-1" : "h-0 border-white"
         }`}
       >
         {open && <p>{description}</p>}
