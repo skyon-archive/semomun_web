@@ -27,6 +27,9 @@ module.exports = {
       gridTemplateColumns: {
         "auto-6": "repeat(6, auto)",
       },
+      fontFamily: {
+        "noto-sans": ['"Noto Sans KR"', "sans-serif"],
+      },
     },
   },
   plugins: [],

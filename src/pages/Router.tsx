@@ -20,7 +20,7 @@ export const Router = () => {
   const thinHeader = useThinHeader();
 
   return (
-    <div className="min-h-screen flex flex-col lg:min-w-0">
+    <div className="min-h-screen flex flex-col lg:min-w-0 font-noto-sans">
       <Header />
       <main
         className={`min-h-54 ${
