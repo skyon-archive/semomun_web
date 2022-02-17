@@ -7,6 +7,7 @@ module.exports = {
         "brand-2": "#3D706E",
         "brand-3": "#EFF8F7",
         "brand-4": "#34938F",
+        "brand-5": "#03D0BC",
         littleblack: "rgba(0, 0, 0, 0.5)",
       },
       height: {
@@ -15,6 +16,7 @@ module.exports = {
       },
       minHeight: {
         "screen-48": "calc( 100vh - 12rem )",
+        "screen-54": "calc( 100vh - 13.5rem )",
         "screen-72": "calc( 100vh - 18rem )",
       },
       width: {
