@@ -23,6 +23,7 @@ module.exports = {
         26: "6.5rem",
         30: "7.5rem",
         34: "8.5rem",
+        144: "36rem",
       },
       gridTemplateColumns: {
         "auto-6": "repeat(6, auto)",

@@ -41,6 +41,30 @@ const Books: FC<BooksProps> = ({ title, tags = [], images }) => {
   );
 };
 
+interface DotsProps {
+  count: number;
+  current: number;
+  size: number;
+  onClick?: (idx: number) => void;
+}
+
+const Dots: FC<DotsProps> = ({ count, current, size, onClick }) => {
+  return (
+    <div className="flex absolute -translate-x-1/2 left-2/4 space-x-2 z-20 bottom-2">
+      {range(count).map((idx) => (
+        <div
+          key={idx}
+          className={`rounded-full h-1.5 w-1.5 ${
+            current === idx ? "bg-gray-200" : "bg-gray-400"
+          }`}
+          style={{ width: `${size}px`, height: `${size}px` }}
+          onClick={() => onClick?.(idx)}
+        />
+      ))}
+    </div>
+  );
+};
+
 const Banner = () => {
   const banner = useMemo(() => [bannerImage, bannerImage2], []);
   const [bannerIdx, setBannerIdx] = useState(0);
@@ -51,8 +75,33 @@ const Banner = () => {
 
   return (
     <>
-      <div className="hidden md:block w-full bg-brand-1 justify-center items-center h-96 overflow-hidden">
-        <img src={bannerImage} alt="banner" />
+      <div className="hidden md:flex w-full bg-brand-1 justify-center items-center h-96 overflow-hidden relative">
+        <div className="max-w-2xl flex items-center h-full w-144 relative overflow-hidden">
+          {range(banner.length + 4, -2).map((idx) => (
+            <img
+              className="object-contain w-full h-full transform transition-all -translate-x-1/2 absolute duration-1000"
+              style={{ left: `${50 + 100 * idx}%` }}
+              key={(bannerIdx + idx + banner.length * 5) % (banner.length * 5)}
+              src={
+                banner[(bannerIdx + idx + banner.length * 5) % banner.length]
+              }
+              alt="banner"
+            />
+          ))}
+        </div>
+        <Dots
+          count={banner.length}
+          current={bannerIdx % banner.length}
+          size={7}
+          onClick={(idx) => {
+            setBannerIdx(
+              (bannerIdx) =>
+                bannerIdx +
+                ((idx - bannerIdx + banner.length * 5) % banner.length)
+            );
+            timerReset();
+          }}
+        />
       </div>
       <div className="md:hidden relative w-full h-48">
         <div className="md:hidden relative w-full overflow-hidden h-full">
@@ -71,26 +120,19 @@ const Banner = () => {
             </div>
           ))}
         </div>
-        <div className="flex absolute -translate-x-1/2 left-2/4 space-x-2 z-20 bottom-2">
-          {range(banner.length).map((idx) => (
-            <div
-              key={idx}
-              className={`rounded-full h-1.5 w-1.5 ${
-                bannerIdx % banner.length === idx
-                  ? "bg-gray-200"
-                  : "bg-gray-400"
-              }`}
-              onClick={() => {
-                setBannerIdx(
-                  (bannerIdx) =>
-                    bannerIdx +
-                    ((idx - bannerIdx + banner.length * 5) % banner.length)
-                );
-                timerReset();
-              }}
-            />
-          ))}
-        </div>
+        <Dots
+          count={banner.length}
+          current={bannerIdx % banner.length}
+          size={7}
+          onClick={(idx) => {
+            setBannerIdx(
+              (bannerIdx) =>
+                bannerIdx +
+                ((idx - bannerIdx + banner.length * 5) % banner.length)
+            );
+            timerReset();
+          }}
+        />
       </div>
     </>
   );
