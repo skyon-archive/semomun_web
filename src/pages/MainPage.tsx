@@ -1,6 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import mainImage from "../assets/images/main_image.png";
+import bannerImage from "../assets/images/banner1.png";
+import bannerImage2 from "../assets/images/landing1.png";
+import { range } from "../utils";
 
 interface BooksProps {
   title: string;
@@ -17,6 +19,7 @@ const Books: FC<BooksProps> = ({ title, tags = [], images }) => {
             <Link
               className="text-brand-2 border-brand-1 rounded-full border px-2 py-1 text-xs w-max flex-shrink-0"
               to={`/search?keyword=${tag}`}
+              key={tag}
             >
               #{tag}
             </Link>
@@ -24,9 +27,9 @@ const Books: FC<BooksProps> = ({ title, tags = [], images }) => {
         </div>
       </div>
       <div className="flex mt-2 space-x-2 h-32 overflow-x-scroll scrollbar-hidden pr-4">
-        {images.map((img) => (
+        {images.map((img, idx) => (
           <img
-            key={img}
+            key={idx}
             alt="bookcover"
             src={img}
             className="h-32 w-[6.4rem] object-cover"
@@ -60,11 +63,37 @@ export const MainPage = () => {
   const solve = [imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl];
   const buy = [imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl];
 
+  const banner = useMemo(() => [bannerImage], []);
+  const [bannerIdx, setBannerIdx] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(
+      () => setBannerIdx((idx) => (idx + 1) % (banner.length * 5)),
+      3500
+    );
+    return () => clearInterval(interval);
+  }, [banner]);
+
   return (
     <div className="w-full flex flex-col items-center mb-8">
-      <div className="w-full bg-brand-1 flex justify-center items-center h-96 overflow-hidden">
-        <p className="text-white font-bold text-xl">세상의 모든 문제를 담다</p>
-        <img src={mainImage} alt="아이패드 이미지" className="h-80" />
+      <div className="hidden md:block w-full bg-brand-1 justify-center items-center h-96 overflow-hidden">
+        <img src={bannerImage} alt="banner" />
+      </div>
+      <div className="md:hidden relative w-full overflow-hidden h-48">
+        {range(banner.length + 4, -2).map((idx) => (
+          <div
+            className={`bg-brand-1 h-full w-72 grid place-content-center transform transition-all duration-1000 absolute -translate-x-1/2`}
+            style={{ left: `calc( 50vw + ${20 * idx}rem )` }}
+            key={(bannerIdx + idx + banner.length * 5) % (banner.length * 5)}
+          >
+            <img
+              src={
+                banner[(bannerIdx + idx + banner.length * 5) % banner.length]
+              }
+              alt="banner"
+            />
+          </div>
+        ))}
       </div>
       <div className="flex flex-col space-y-6 mt-6 max-w-3xl w-full pl-4">
         <Books title="베스트 셀러" images={bestSellers} />
