@@ -13,6 +13,7 @@ import { ReactComponent as SemoPay } from "../assets/icons/icon-semo-pay.svg";
 import { ReactComponent as Bag } from "../assets/icons/icon-bag.svg";
 import { ReactComponent as Apple } from "../assets/icons/icon-apple.svg";
 import { ReactComponent as Google } from "../assets/icons/icon-google.svg";
+import { ReactComponent as Person } from "../assets/icons/icon-person.svg";
 
 function withStroke<T extends SVGProps<SVGSVGElement>>(
   Icon: ComponentType<T>
@@ -37,4 +38,5 @@ export const Icon = {
   Bag: withStroke(Bag),
   Apple: withStroke(Apple),
   Google: withStroke(Google),
+  Person: withStroke(Person),
 };

@@ -3,20 +3,40 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { useThinHeader } from "../hooks";
 import whiteLogo from "../assets/images/white_logo.png";
+import { Icon } from "./Icon";
 
-const MobileHeader = () => (
-  <div className="md:hidden w-full bg-brand-5 h-14 flex justify-between items-center px-5">
-    <Link to="/">
-      <img src={whiteLogo} alt="로고" className="h-9" />
-    </Link>
-    <Link
-      className="bg-white text-brand-1 rounded-full px-4 py-0.5"
-      to="/login"
-    >
-      로그인
-    </Link>
-  </div>
-);
+const MobileHeader = () => {
+  const authenticated = true;
+  return (
+    <div className="md:hidden w-full bg-brand-5 h-14 flex justify-between items-center px-5">
+      {authenticated ? (
+        <>
+          <Link to="/mypage">
+            <Icon.Person />
+          </Link>
+          <Link to="/">
+            <img src={whiteLogo} alt="로고" className="h-9" />
+          </Link>
+          <Link to="/cart">
+            <Icon.Bag className="fill-white w-6 h-6 mx-1 stroke-0" />
+          </Link>
+        </>
+      ) : (
+        <>
+          <Link to="/">
+            <img src={whiteLogo} alt="로고" className="h-9" />
+          </Link>
+          <Link
+            className="bg-white text-brand-1 rounded-full px-4 py-0.5"
+            to="/login"
+          >
+            로그인
+          </Link>
+        </>
+      )}
+    </div>
+  );
+};
 
 const LandingHeader = () => (
   <div className="hidden w-full md:flex items-center justify-between text-brand-1 px-8 h-8">
