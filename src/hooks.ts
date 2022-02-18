@@ -1,4 +1,5 @@
 import { parse, stringify } from "qs";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router";
 import { api } from "./plugins/axios";
 import { tokenState } from "./plugins/ridge";
@@ -35,4 +36,29 @@ export const useThinHeader = () => {
   const { pathname } = useLocation();
   const thinPathnames = ["/landing", "/contact", "/faq", "/login"];
   return thinPathnames.some((thinPath) => pathname.startsWith(thinPath));
+};
+
+export const useInterval = (callback: () => void, ms: number) => {
+  const callbackRef = useRef<() => void>();
+  const timerRef = useRef<NodeJS.Timer | null>(null);
+
+  useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
+    if (callbackRef.current)
+      timerRef.current = setInterval(callbackRef.current, ms);
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+  }, [callbackRef, ms]);
+
+  return () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(callback, ms);
+  };
 };

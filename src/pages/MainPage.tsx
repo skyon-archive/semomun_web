@@ -1,7 +1,8 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, { FC, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import bannerImage from "../assets/images/banner1.png";
 import bannerImage2 from "../assets/images/landing1.png";
+import { useInterval } from "../hooks";
 import { range } from "../utils";
 
 interface BooksProps {
@@ -40,42 +41,16 @@ const Books: FC<BooksProps> = ({ title, tags = [], images }) => {
   );
 };
 
-export const MainPage = () => {
-  const imageUrl =
-    "https://saemomoon.com/images/bookcover/256x256/5ad2d320-5e36-4fa6-a417-ed5daa7b644a.png";
-  const bestSellers = [
-    imageUrl,
-    imageUrl,
-    imageUrl,
-    imageUrl,
-    imageUrl,
-    imageUrl,
-  ];
-  const tags = ["해커스어학연구소", "토익", "파고다교육그룹", "어쩌구"];
-  const tagCovers = [
-    imageUrl,
-    imageUrl,
-    imageUrl,
-    imageUrl,
-    imageUrl,
-    imageUrl,
-  ];
-  const solve = [imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl];
-  const buy = [imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl];
-
+const Banner = () => {
   const banner = useMemo(() => [bannerImage, bannerImage2], []);
   const [bannerIdx, setBannerIdx] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(
-      () => setBannerIdx((idx) => (idx + 1) % (banner.length * 5)),
-      3500
-    );
-    return () => clearInterval(interval);
-  }, [banner]);
+  const timerReset = useInterval(
+    () => setBannerIdx((idx) => (idx + 1) % (banner.length * 5)),
+    3500
+  );
 
   return (
-    <div className="w-full flex flex-col items-center mb-8">
+    <>
       <div className="hidden md:block w-full bg-brand-1 justify-center items-center h-96 overflow-hidden">
         <img src={bannerImage} alt="banner" />
       </div>
@@ -99,22 +74,54 @@ export const MainPage = () => {
         <div className="flex absolute -translate-x-1/2 left-2/4 space-x-2 z-20 bottom-2">
           {range(banner.length).map((idx) => (
             <div
+              key={idx}
               className={`rounded-full h-1.5 w-1.5 ${
                 bannerIdx % banner.length === idx
                   ? "bg-gray-200"
                   : "bg-gray-400"
               }`}
-              onClick={() =>
+              onClick={() => {
                 setBannerIdx(
                   (bannerIdx) =>
                     bannerIdx +
                     ((idx - bannerIdx + banner.length * 5) % banner.length)
-                )
-              }
+                );
+                timerReset();
+              }}
             />
           ))}
         </div>
       </div>
+    </>
+  );
+};
+
+export const MainPage = () => {
+  const imageUrl =
+    "https://saemomoon.com/images/bookcover/256x256/5ad2d320-5e36-4fa6-a417-ed5daa7b644a.png";
+  const bestSellers = [
+    imageUrl,
+    imageUrl,
+    imageUrl,
+    imageUrl,
+    imageUrl,
+    imageUrl,
+  ];
+  const tags = ["해커스어학연구소", "토익", "파고다교육그룹", "어쩌구"];
+  const tagCovers = [
+    imageUrl,
+    imageUrl,
+    imageUrl,
+    imageUrl,
+    imageUrl,
+    imageUrl,
+  ];
+  const solve = [imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl];
+  const buy = [imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl];
+
+  return (
+    <div className="w-full flex flex-col items-center mb-8">
+      <Banner />
       <div className="flex flex-col space-y-6 mt-6 max-w-3xl w-full pl-4">
         <Books title="베스트 셀러" images={bestSellers} />
         <Books title="나의 태그" tags={tags} images={tagCovers} />
