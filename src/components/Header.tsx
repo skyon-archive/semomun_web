@@ -30,7 +30,7 @@ const LandingHeader = () => (
 const TopHeader = () => {
   const thin = useThinHeader();
   return (
-    <div className="w-full h-8 bg-brand-1 flex items-center space-x-2 px-4">
+    <div className="w-full h-8 bg-brand-5 flex items-center space-x-2 px-4">
       {thin && (
         <Link to="/" className="text-white px-2 font-bold">
           세모문
