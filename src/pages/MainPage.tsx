@@ -63,7 +63,7 @@ export const MainPage = () => {
   const solve = [imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl];
   const buy = [imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl];
 
-  const banner = useMemo(() => [bannerImage], []);
+  const banner = useMemo(() => [bannerImage, bannerImage2], []);
   const [bannerIdx, setBannerIdx] = useState(0);
 
   useEffect(() => {
@@ -79,21 +79,41 @@ export const MainPage = () => {
       <div className="hidden md:block w-full bg-brand-1 justify-center items-center h-96 overflow-hidden">
         <img src={bannerImage} alt="banner" />
       </div>
-      <div className="md:hidden relative w-full overflow-hidden h-48">
-        {range(banner.length + 4, -2).map((idx) => (
-          <div
-            className={`bg-brand-1 h-full w-72 grid place-content-center transform transition-all duration-1000 absolute -translate-x-1/2`}
-            style={{ left: `calc( 50vw + ${20 * idx}rem )` }}
-            key={(bannerIdx + idx + banner.length * 5) % (banner.length * 5)}
-          >
-            <img
-              src={
-                banner[(bannerIdx + idx + banner.length * 5) % banner.length]
+      <div className="md:hidden relative w-full h-48">
+        <div className="md:hidden relative w-full overflow-hidden h-full">
+          {range(banner.length + 4, -2).map((idx) => (
+            <div
+              className={`bg-brand-1 h-full w-72 grid place-content-center transform transition-all duration-1000 absolute -translate-x-1/2`}
+              style={{ left: `calc( 50vw + ${20 * idx}rem )` }}
+              key={(bannerIdx + idx + banner.length * 5) % (banner.length * 5)}
+            >
+              <img
+                src={
+                  banner[(bannerIdx + idx + banner.length * 5) % banner.length]
+                }
+                alt="banner"
+              />
+            </div>
+          ))}
+        </div>
+        <div className="flex absolute -translate-x-1/2 left-2/4 space-x-2 z-20 bottom-2">
+          {range(banner.length).map((idx) => (
+            <div
+              className={`rounded-full h-1.5 w-1.5 ${
+                bannerIdx % banner.length === idx
+                  ? "bg-gray-200"
+                  : "bg-gray-400"
+              }`}
+              onClick={() =>
+                setBannerIdx(
+                  (bannerIdx) =>
+                    bannerIdx +
+                    ((idx - bannerIdx + banner.length * 5) % banner.length)
+                )
               }
-              alt="banner"
             />
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       <div className="flex flex-col space-y-6 mt-6 max-w-3xl w-full pl-4">
         <Books title="베스트 셀러" images={bestSellers} />
