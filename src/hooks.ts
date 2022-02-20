@@ -57,8 +57,12 @@ export const useInterval = (callback: () => void, ms: number) => {
     };
   }, [callbackRef, ms]);
 
-  return () => {
+  const reset = () => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(callback, ms);
   };
+  const clear = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+  };
+  return [reset, clear];
 };

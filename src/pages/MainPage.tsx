@@ -1,5 +1,6 @@
-import React, { FC, useMemo, useState } from "react";
+import React, { FC, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { throttle } from "throttle-debounce";
 import bannerImage from "../assets/images/banner1.png";
 import bannerImage2 from "../assets/images/landing1.png";
 import { useInterval } from "../hooks";
@@ -68,10 +69,40 @@ const Dots: FC<DotsProps> = ({ count, current, size, onClick }) => {
 const Banner = () => {
   const banner = useMemo(() => [bannerImage, bannerImage2], []);
   const [bannerIdx, setBannerIdx] = useState(0);
-  const timerReset = useInterval(
+  const [timerReset, timerClear] = useInterval(
     () => setBannerIdx((idx) => (idx + 1) % (banner.length * 5)),
     3500
   );
+  const originXRef = useRef<number | null>(null);
+  const newXRef = useRef<number | null>(null);
+
+  const onTouchMove = throttle(30, (e: TouchEvent) => {
+    newXRef.current = e.touches[0].clientX;
+  });
+
+  const onTouchEnd = () => {
+    if (originXRef.current && newXRef.current) {
+      if (newXRef.current < originXRef.current - 50)
+        setBannerIdx((bannerIdx) => (bannerIdx + 1) % (banner.length * 5));
+      if (newXRef.current > originXRef.current + 50)
+        setBannerIdx(
+          (bannerIdx) =>
+            (bannerIdx - 1 + banner.length * 5) % (banner.length * 5)
+        );
+      originXRef.current = null;
+      newXRef.current = null;
+    }
+    document.ontouchmove = null;
+    document.ontouchend = null;
+    timerReset();
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    originXRef.current = e.touches[0].clientX;
+    document.ontouchmove = onTouchMove;
+    document.ontouchend = onTouchEnd;
+    timerClear();
+  };
 
   return (
     <>
@@ -79,6 +110,7 @@ const Banner = () => {
         <div className="max-w-2xl flex items-center h-full w-144 relative overflow-hidden">
           {range(banner.length + 4, -2).map((idx) => (
             <img
+              onTouchStart={onTouchStart}
               className="object-contain w-full h-full transform transition-all -translate-x-1/2 absolute duration-1000"
               style={{ left: `${50 + 100 * idx}%` }}
               key={(bannerIdx + idx + banner.length * 5) % (banner.length * 5)}
@@ -110,6 +142,7 @@ const Banner = () => {
               className={`bg-brand-1 h-full w-72 grid place-content-center transform transition-all duration-1000 absolute -translate-x-1/2`}
               style={{ left: `calc( 50vw + ${20 * idx}rem )` }}
               key={(bannerIdx + idx + banner.length * 5) % (banner.length * 5)}
+              onTouchStart={onTouchStart}
             >
               <img
                 src={
