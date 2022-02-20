@@ -133,6 +133,17 @@ export const Header = () => {
   const { pathname } = useLocation();
   const thin = useThinHeader();
 
+  if (pathname === "/mypage" || pathname === "/mypage/")
+    return (
+      <div className="h-14 bg-brand-5 justify-between flex items-center px-4 relative">
+        <div className="w-6" />
+        <p className="text-white font-bold text-lg text-center">마이페이지</p>
+        <div className="w-6">
+          <Icon.X className="text-white" />
+        </div>
+      </div>
+    );
+
   return (
     <>
       <MobileHeader />
