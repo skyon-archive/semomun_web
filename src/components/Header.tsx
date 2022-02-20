@@ -131,6 +131,7 @@ const BottomHeader = () => {
 
 export const Header = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const thin = useThinHeader();
 
   if (pathname === "/mypage" || pathname === "/mypage/")
@@ -139,7 +140,7 @@ export const Header = () => {
         <div className="w-6" />
         <p className="text-white font-bold text-lg text-center">마이페이지</p>
         <div className="w-6">
-          <Icon.X className="text-white" />
+          <Icon.X className="text-white" onClick={() => navigate(-1)} />
         </div>
       </div>
     );

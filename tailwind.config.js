@@ -12,7 +12,9 @@ module.exports = {
       },
       height: {
         4.5: "1.125rem",
+        25: "6.25rem",
         38: "9.5rem",
+        46: "11.5rem",
       },
       minHeight: {
         "screen-14": "calc( 100vh - 3.5rem )",

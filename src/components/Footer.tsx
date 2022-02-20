@@ -31,7 +31,7 @@ export const Footer = () => {
           <Link to="/contact">기업문의</Link>
           <Link to="/faq">FAQ</Link>
         </div>
-        <p>
+        <p className="text-xs">
           (주) 스카이온에듀 | 대표:신승민
           <br />
           사업자등록번호: 165-8102191
@@ -39,7 +39,7 @@ export const Footer = () => {
           통신판매업신고: 2021-서울동작-0139 호<br />
           사업장 주소: 서울특별시 동작구 사당로 295, 3층
         </p>
-        <p className="my-3">© All Rights Reserved by Skyon</p>
+        <p className="mt-3 mb-2 text-xs">© All Rights Reserved by Skyon</p>
       </div>
     </>
   );
