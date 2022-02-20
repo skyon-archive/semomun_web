@@ -4,8 +4,8 @@ import whiteLogo from "../assets/images/white_logo.png";
 
 export const ChargeDonePage = () => {
   return (
-    <div className="w-full min-h-screen-18 bg-gray-100 flex justify-center py-12">
-      <div className="bg-white drop-shadow-[2px_0px_8px_#0002] rounded-lg max-w-lg w-full flex flex-col stroke-0 items-center py-8 h-fit">
+    <div className="w-full min-h-screen-72 bg-white md:bg-gray-100 flex justify-center pt-12 pb-16 md:py-12">
+      <div className="bg-white md:drop-shadow-[2px_0px_8px_#0002] rounded-lg max-w-lg w-full flex flex-col stroke-0 items-center py-8 h-fit">
         <Icon.SemoPay className="h-24 w-24" />
         <p className="font-medium py-3">
           홍길동님의 세모페이 충전이 완료되었습니다.
