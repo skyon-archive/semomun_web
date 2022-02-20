@@ -27,7 +27,7 @@ const Books: FC<BooksProps> = ({ title, tags = [], images }) => {
           ))}
         </div>
       </div>
-      <div className="flex mt-2 space-x-2 h-32 overflow-x-scroll scrollbar-hidden pr-4">
+      <div className="flex mt-2 space-x-2 h-32 overflow-x-scroll pr-4">
         {images.map((img, idx) => (
           <img
             key={idx}
