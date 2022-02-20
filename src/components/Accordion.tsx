@@ -24,7 +24,7 @@ export const Accordion: FC<AccordionProps> = ({
         onClick={() => setOpen((open) => !open)}
       >
         <p className="w-20 text-center">{idx}.</p>
-        <p className="flex-grow">{title}</p>
+        <p className="flex-grow pr-2">{title}</p>
         <button>{open ? <Icon.ChevronUp /> : <Icon.ChevronDown />}</button>
       </div>
       <div
