@@ -15,7 +15,9 @@ const Row: FC<RowProps> = ({ label, className, children, ...props }) => {
       className={`flex border-b border-gray-300 items-center py-3 pr-6 w-full ${className}`}
       {...props}
     >
-      <p className="w-36 text-center">{label}</p>
+      <p className="w-18 md:w-36 text-left md:text-center pl-2 shrink-0 break-keep">
+        {label}
+      </p>
       {children}
     </div>
   );
@@ -24,7 +26,7 @@ const Row: FC<RowProps> = ({ label, className, children, ...props }) => {
 export const MyPageInfoEdit = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <div className="flex flex-col px-12 text-sm mb-12 items-center">
+    <div className="flex flex-col px-4 md:px-12 text-sm mb-12 items-center">
       <Row label="이메일">
         <TextField placeholder="이메일을 입력해 주세요." />
       </Row>
@@ -59,19 +61,35 @@ export const MyPageInfoEdit = () => {
           </Select>
         </div>
       </Row>
-      <Row label="주소" className="w-full">
-        <div className="flex flex-col flex-grow space-y-1">
-          <div className="flex items-center space-x-3">
-            <TextField placeholder="010-0000-0000" />
-            <button className="h-7 border rounded border-gray-600 px-2">
+      <Row label="휴대전화" className="w-full">
+        <div className="flex flex-col space-y-1 w-full">
+          <div className="flex items-center space-x-3 w-full">
+            <TextField
+              placeholder="010-0000-0000"
+              containerClassName="grow w-0 md:grow-0 md:w-64"
+            />
+            <button className="h-7 border rounded border-gray-600 px-2 shrink-0">
               인증번호 받기
             </button>
           </div>
+          <div className="flex items-center space-x-3">
+            <TextField
+              placeholder="인증번호 입력"
+              containerClassName="grow w-0 md:grow-0 md:w-36"
+            />
+            <button className="h-7 border rounded border-gray-600 px-2 flex-shrink-0">
+              인증번호 확인
+            </button>
+          </div>
+        </div>
+      </Row>
+      <Row label="주소" className="w-full">
+        <div className="flex flex-col flex-grow space-y-1">
           <TextField placeholder="도로명주소" className="w-full" />
           <TextField placeholder="상세주소" className="w-full" />
         </div>
       </Row>
-      <Row label="마케팅수신 정보">
+      <Row label="마케팅 수신 정보">
         <div className="flex flex-col">
           <Checkbox label="마케팅(광고) 수신동의 여부(선택)" />
           <p className="text-gray-500">
