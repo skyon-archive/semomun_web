@@ -1,9 +1,8 @@
 import React, { FC, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { throttle } from "throttle-debounce";
 import bannerImage from "../assets/images/banner1.png";
 import bannerImage2 from "../assets/images/landing1.png";
-import { useInterval } from "../hooks";
+import { useInterval, useThrottle } from "../hooks";
 import { range } from "../utils";
 
 interface BooksProps {
@@ -69,26 +68,31 @@ const Dots: FC<DotsProps> = ({ count, current, size, onClick }) => {
 const Banner = () => {
   const banner = useMemo(() => [bannerImage, bannerImage2], []);
   const [bannerIdx, setBannerIdx] = useState(0);
+  const mod = banner.length * 50;
   const [timerReset, timerClear] = useInterval(
-    () => setBannerIdx((idx) => (idx + 1) % (banner.length * 5)),
+    () => setBannerIdx((idx) => (idx + 1) % mod),
     3500
   );
   const originXRef = useRef<number | null>(null);
   const newXRef = useRef<number | null>(null);
 
-  const onTouchMove = throttle(30, (e: TouchEvent) => {
+  const onTouchMove = useThrottle((e: TouchEvent) => {
     newXRef.current = e.touches[0].clientX;
-  });
+  }, 50);
+
+  const slideNext = useThrottle(
+    () => setBannerIdx((bannerIdx) => (bannerIdx + 1) % mod),
+    300
+  );
+  const slidePrev = useThrottle(
+    () => setBannerIdx((bannerIdx) => (bannerIdx - 1 + mod) % mod),
+    300
+  );
 
   const onTouchEnd = () => {
     if (originXRef.current && newXRef.current) {
-      if (newXRef.current < originXRef.current - 50)
-        setBannerIdx((bannerIdx) => (bannerIdx + 1) % (banner.length * 5));
-      if (newXRef.current > originXRef.current + 50)
-        setBannerIdx(
-          (bannerIdx) =>
-            (bannerIdx - 1 + banner.length * 5) % (banner.length * 5)
-        );
+      if (newXRef.current < originXRef.current - 50) slideNext();
+      if (newXRef.current > originXRef.current + 50) slidePrev();
       originXRef.current = null;
       newXRef.current = null;
     }
@@ -104,19 +108,24 @@ const Banner = () => {
     timerClear();
   };
 
+  const dotOnClick = (idx: number) => {
+    setBannerIdx(
+      (bannerIdx) => bannerIdx + ((idx - bannerIdx + mod) % banner.length)
+    );
+    timerReset();
+  };
+
   return (
     <>
       <div className="hidden md:flex w-full bg-brand-1 justify-center items-center h-96 overflow-hidden relative">
         <div className="max-w-2xl flex items-center h-full w-144 relative overflow-hidden">
-          {range(banner.length + 4, -2).map((idx) => (
+          {range(21, -10).map((idx) => (
             <img
               onTouchStart={onTouchStart}
               className="object-contain w-full h-full transform transition-all -translate-x-1/2 absolute duration-1000"
               style={{ left: `${50 + 100 * idx}%` }}
-              key={(bannerIdx + idx + banner.length * 5) % (banner.length * 5)}
-              src={
-                banner[(bannerIdx + idx + banner.length * 5) % banner.length]
-              }
+              key={(bannerIdx + idx + mod) % mod}
+              src={banner[(bannerIdx + idx + mod) % banner.length]}
               alt="banner"
             />
           ))}
@@ -125,14 +134,7 @@ const Banner = () => {
           count={banner.length}
           current={bannerIdx % banner.length}
           size={7}
-          onClick={(idx) => {
-            setBannerIdx(
-              (bannerIdx) =>
-                bannerIdx +
-                ((idx - bannerIdx + banner.length * 5) % banner.length)
-            );
-            timerReset();
-          }}
+          onClick={dotOnClick}
         />
       </div>
       <div className="md:hidden relative w-full h-48">
@@ -141,13 +143,11 @@ const Banner = () => {
             <div
               className={`bg-brand-1 h-full w-72 grid place-content-center transform transition-all duration-1000 absolute -translate-x-1/2`}
               style={{ left: `calc( 50vw + ${20 * idx}rem )` }}
-              key={(bannerIdx + idx + banner.length * 5) % (banner.length * 5)}
+              key={(bannerIdx + idx + mod) % mod}
               onTouchStart={onTouchStart}
             >
               <img
-                src={
-                  banner[(bannerIdx + idx + banner.length * 5) % banner.length]
-                }
+                src={banner[(bannerIdx + idx + mod) % banner.length]}
                 alt="banner"
               />
             </div>
@@ -157,14 +157,7 @@ const Banner = () => {
           count={banner.length}
           current={bannerIdx % banner.length}
           size={7}
-          onClick={(idx) => {
-            setBannerIdx(
-              (bannerIdx) =>
-                bannerIdx +
-                ((idx - bannerIdx + banner.length * 5) % banner.length)
-            );
-            timerReset();
-          }}
+          onClick={dotOnClick}
         />
       </div>
     </>

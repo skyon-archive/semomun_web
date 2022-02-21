@@ -66,3 +66,24 @@ export const useInterval = (callback: () => void, ms: number) => {
   };
   return [reset, clear];
 };
+
+export const useThrottle = (callback: any, ms: number) => {
+  const stopped = useRef<boolean>(false);
+  const timeout = useRef<NodeJS.Timeout | null>(null);
+  const throttled = (...props: any[]) => {
+    if (!stopped.current) {
+      stopped.current = true;
+      timeout.current = setTimeout(() => {
+        stopped.current = false;
+      }, ms);
+      callback(...props);
+    }
+  };
+  useEffect(
+    () => () => {
+      if (timeout.current) clearTimeout(timeout.current);
+    },
+    []
+  );
+  return throttled;
+};
