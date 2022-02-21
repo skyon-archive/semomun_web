@@ -9,7 +9,7 @@ import { MyPageSemopay } from "./MyPage/MyPageSemopay";
 import { MyPagePurchaseDetail } from "./MyPage/MyPagePurchaseDetail";
 import { MyPagePurchase } from "./MyPage/MyPagePurchase";
 import { MyPageAnnounceDetail } from "./MyPage/MyPageAnnounceDetail";
-import { throttle } from "throttle-debounce";
+import { useThrottle } from "../hooks";
 
 const data = [
   { text: "HOME", route: "home" },
@@ -23,18 +23,17 @@ export const MyPage = () => {
   const { pathname } = useLocation();
   const [screenSmall, setScreenSmall] = useState(true);
 
+  const resizeHandler = useThrottle(
+    () => setScreenSmall(window.screen.width < 768),
+    100
+  );
   useEffect(() => {
-    const handler = throttle(80, () =>
-      setScreenSmall(window.screen.width < 768)
-    );
-    window.onresize = handler;
-    handler();
+    window.onresize = resizeHandler;
+    resizeHandler();
     return () => {
       window.onresize = null;
     };
-  }, []);
-
-  console.log(screenSmall);
+  }, [resizeHandler]);
 
   return (
     <div className="w-screen flex justify-center">
