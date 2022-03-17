@@ -167,14 +167,7 @@ const Banner = () => {
 export const MainPage = () => {
   const imageUrl =
     "https://saemomoon.com/images/bookcover/256x256/5ad2d320-5e36-4fa6-a417-ed5daa7b644a.png";
-  const bestSellers = [
-    imageUrl,
-    imageUrl,
-    imageUrl,
-    imageUrl,
-    imageUrl,
-    imageUrl,
-  ];
+  const bestSellers = [imageUrl];
   const tags = ["해커스어학연구소", "토익", "파고다교육그룹", "어쩌구"];
   const tagCovers = [
     imageUrl,
@@ -191,10 +184,10 @@ export const MainPage = () => {
     <div className="w-full flex flex-col items-center mb-8">
       <Banner />
       <div className="flex flex-col space-y-6 mt-6 max-w-3xl w-full pl-4">
-        <Books title="베스트 셀러" images={bestSellers} />
-        <Books title="나의 태그" tags={tags} images={tagCovers} />
+        <Books title="베스트 셀러 (준비중)" images={bestSellers} />
+        {/*<Books title="나의 태그" tags={tags} images={tagCovers} />
         <Books title="최근에 푼 문제집" images={solve} />
-        <Books title="최근에 구매한 문제집" images={buy} />
+  <Books title="최근에 구매한 문제집" images={buy} />*/}
       </div>
     </div>
   );
