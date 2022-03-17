@@ -11,6 +11,7 @@ import { LandingPage } from "./LandingPage";
 import { LoginPage } from "./LoginPage";
 import { MainPage } from "./MainPage";
 import { SearchPage } from "./SearchPage";
+import { TermsPage } from "./TermsPage";
 //import { MyPage } from "./MyPage";
 //import { CartPage } from "./CartPage";
 //import { PurchasePage } from "./PurchasePage";
@@ -31,6 +32,7 @@ export const Router = () => {
           <Route path="/" element={<MainPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path="/terms" element={<TermsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/landing" element={<LandingPage />} />
           {/*<Route path="/cart" element={<CartPage />} />*/}

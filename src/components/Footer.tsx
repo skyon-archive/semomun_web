@@ -18,7 +18,7 @@ export const Footer = () => {
             <p>사업장 주소: 서울특별시 동작구 사당로 295, 3층</p>
           </div>
           <div className="flex mt-1 space-x-8">
-            <p>이용약관 {"&"} 개인정보처리방침</p>
+            <Link to="/terms">이용약관 {"&"} 개인정보처리방침</Link>
             <p>© All Rights Reserved by Skyon</p>
           </div>
         </div>
@@ -26,8 +26,7 @@ export const Footer = () => {
       <div className="md:hidden w-full drop-shadow-[0_-2px_10px_#0001] bg-white px-6 py-4 h-46 text-sm">
         <img src={textLogo} className="h-5 mr-8" alt="skyon logo" />
         <div className="flex my-3 space-x-3">
-          <a href="/">이용약관</a>
-          <a href="/">개인정보처리방침</a>
+          <Link to="/terms">이용약관 {"&"} 개인정보처리방침</Link>
           <Link to="/contact">기업문의</Link>
           <Link to="/faq">FAQ</Link>
         </div>
