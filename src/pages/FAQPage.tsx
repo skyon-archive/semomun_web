@@ -82,9 +82,9 @@ const data = [
 
 export const FAQPage = () => {
   return (
-    <div className="w-full flex flex-col items-center space-y-12 pt-16">
-      <h2 className="font-bold text-3xl">FAQ</h2>
-      <div className="flex flex-col w-full max-w-3xl space-y-3">
+    <div className="w-full flex flex-col items-center mb-6">
+      <h2 className="font-bold text-3xl py-6 md:py-16">FAQ</h2>
+      <div className="flex flex-col w-full max-w-3xl space-y-3 px-4">
         {data.map(({ question, answer }, idx) => (
           <Accordion
             className="w-full text-sm"

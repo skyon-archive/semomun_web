@@ -9,8 +9,8 @@ export const MyPageWithdraw = () => {
   const [agree, setAgree] = useState(false);
 
   return (
-    <div className="flex flex-col items-center w-full px-12 mb-8">
-      <h3 className="text-red-700 text-lg font-medium my-8">
+    <div className="flex flex-col items-center w-full px-6 md:px-12 mb-8 break-keep">
+      <h3 className="text-red-600 text-lg font-medium my-8">
         다음 사항을 꼭 확인해 주세요
       </h3>
       <div className="w-full flex flex-col text-sm">
@@ -20,7 +20,7 @@ export const MyPageWithdraw = () => {
         </p>
 
         <h5 className="font-medium mt-4">
-          자동삭제항목(<span className="text-red-700">복구불가능</span>)
+          자동삭제항목(<span className="text-red-600">복구불가능</span>)
         </h5>
         <p className="before:content-[':_'] before:-ml-2 pl-2">
           회원정보, 상품구매, E-문제집콘텐츠, 할인쿠폰, 마일리지, 통합포인트,
@@ -68,19 +68,24 @@ export const MyPageWithdraw = () => {
             </button>
           </div>
         </ul>
+        <p className="mt-2">이름, 세모페이, 구매내역 정보는 모두 소멸됩니다.</p>
 
-        <h5 className="font-medium mt-8">
+        <h5 className="font-medium mt-8 mb-1">
           본인 확인을 위해 비밀번호를 입력해 주세요
         </h5>
-        <TextField placeholder="비밀번호를 입력해 주세요" className="w-96" />
+        <TextField
+          placeholder="비밀번호를 입력해 주세요"
+          className="w-full md:w-96"
+        />
       </div>
 
-      <div className="flex items-center space-x-2 mt-8">
+      <div className="flex items-start space-x-2 mt-8">
         <input
           type="checkbox"
           id={id}
           checked={agree}
           onChange={(e) => setAgree(e.target.checked)}
+          className="mt-1"
         />
         <label htmlFor={id} className="text-sm ">
           위 내용을 모두 확인하였으며, 모든 정보는 복구가 불가능합니다. 구매하신

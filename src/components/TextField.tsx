@@ -5,14 +5,25 @@ export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   labelClassName?: string;
   helper?: string;
+  containerClassName?: string;
 }
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ className = "", label, labelClassName = "", helper, ...props }, ref) => {
+  (
+    {
+      className = "",
+      label,
+      labelClassName = "",
+      containerClassName = "",
+      helper,
+      ...props
+    },
+    ref
+  ) => {
     const [id] = useId(1, "textfield");
 
     return (
-      <div className="label-col">
+      <div className={`label-col ${containerClassName}`}>
         {label && (
           <label htmlFor={id} className={labelClassName}>
             {label}
