@@ -168,6 +168,7 @@ export const MainPage = () => {
   const imageUrl =
     "https://saemomoon.com/images/bookcover/256x256/5ad2d320-5e36-4fa6-a417-ed5daa7b644a.png";
   const bestSellers = [imageUrl];
+  /*
   const tags = ["해커스어학연구소", "토익", "파고다교육그룹", "어쩌구"];
   const tagCovers = [
     imageUrl,
@@ -179,6 +180,7 @@ export const MainPage = () => {
   ];
   const solve = [imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl];
   const buy = [imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl];
+  */
 
   return (
     <div className="w-full flex flex-col items-center mb-8">
