@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import logo from "../assets/images/logo.png";
-import { useThinHeader } from "../hooks";
+import { useThinHeader, useAuth } from "../hooks";
 import whiteLogo from "../assets/images/white_logo.png";
 import { Icon } from "./Icon";
 
@@ -77,6 +77,7 @@ const BottomHeader = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
   const [keyword, setKeyword] = useState("");
+  const { authenticated } = useAuth();
 
   useEffect(() => {
     const params = new URLSearchParams(search);
@@ -112,18 +113,29 @@ const BottomHeader = () => {
         </form>
       </div>
       <div className="flex h-full space-x-3 justify-center items-center w-64 flex-shrink-0">
-        <button
-          className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium h-fit"
-          onClick={() => alert("결제 기능은 준비 중입니다 :)")}
-        >
-          페이 충전
-        </button>
-        <button
-          className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium h-fit"
-          onClick={() => alert("결제 기능은 준비 중입니다 :)")}
-        >
-          장바구니
-        </button>
+        {authenticated ? (
+          <>
+            <button
+              className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium h-fit"
+              onClick={() => alert("결제 기능은 준비 중입니다 :)")}
+            >
+              페이 충전
+            </button>
+            <button
+              className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium h-fit"
+              onClick={() => alert("결제 기능은 준비 중입니다 :)")}
+            >
+              장바구니
+            </button>
+          </>
+        ) : (
+          <Link
+            className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium h-fit"
+            to="/login"
+          >
+            로그인
+          </Link>
+        )}
       </div>
     </div>
   );

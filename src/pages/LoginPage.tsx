@@ -31,7 +31,7 @@ export const LoginPage = () => {
           onSuccess={(response) =>
             googleHandler((response as GoogleLoginResponse).tokenId)
           }
-          onFailure={() => alert("로그인 실패")}
+          onFailure={() => alert("구글 로그인 실패")}
           render={(renderProps) => (
             <button
               className="flex bg-white rounded-lg w-full h-10 text-gray-600 justify-center items-center space-x-2 drop-shadow"
