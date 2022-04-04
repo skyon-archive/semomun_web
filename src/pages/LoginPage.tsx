@@ -20,6 +20,11 @@ export const LoginPage = () => {
   return (
     <div className="w-full flex flex-col items-center">
       <Semomun className="mt-32 mb-12" />
+      <h2 className="font-bold text-2xl mb-12 text-center">
+        로그인을 비롯한 새로운 기능들은 준비 중입니다.
+        <br />
+        조금만 기다려주세요 :)
+      </h2>
       <div className="w-64 flex flex-col space-y-3">
         <button className="flex bg-black rounded-lg w-full h-10 text-white justify-center items-center space-x-2 drop-shadow">
           <Icon.Apple className="w-5 h-5 fill-white" />
@@ -31,7 +36,9 @@ export const LoginPage = () => {
           onSuccess={(response) =>
             googleHandler((response as GoogleLoginResponse).tokenId)
           }
-          onFailure={() => alert("구글 로그인 실패")}
+          onFailure={() => {
+            /*alert("구글 로그인 실패")*/
+          }}
           render={(renderProps) => (
             <button
               className="flex bg-white rounded-lg w-full h-10 text-gray-600 justify-center items-center space-x-2 drop-shadow"
