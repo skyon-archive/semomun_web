@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GoogleLogin, GoogleLoginResponse } from "react-google-login";
 import { Icon } from "../components/Icon";
 import { Semomun } from "../components/Semomun";
@@ -17,6 +17,15 @@ export const LoginPage = () => {
       });
   };
 
+  useEffect(() => {
+    document.addEventListener("AppleIDSignInOnSuccess", (data) => {
+      console.log(data);
+    });
+    document.addEventListener("AppleIDSignInOnFailure", (error) => {
+      alert("애플 로그인 실패");
+    });
+  });
+
   return (
     <div className="w-full flex flex-col items-center">
       <Semomun className="mt-32 mb-12" />
@@ -26,12 +35,32 @@ export const LoginPage = () => {
         조금만 기다려주세요 :)
       </h2>
       <div className="w-64 flex flex-col space-y-3">
-        <button className="flex bg-black rounded-lg w-full h-10 text-white justify-center items-center space-x-2 drop-shadow">
+        <button
+          className="flex bg-black rounded-lg w-full h-10 text-white justify-center items-center space-x-2 drop-shadow"
+          onClick={() => {
+            const config = {
+              client_id: process.env.REACT_APP_APPLE_CLIENT_ID, // This is the service ID we created.
+              redirect_uri: "https://semomun.com/login", // As registered along with our service ID
+              response_type: "code",
+              scope: "name", // To tell apple we want the user name and emails fields in the response it sends us.
+              response_mode: "form_post",
+            };
+            const queryString = Object.entries(config)
+              .map(([key, value]) => `${key}=${value}`)
+              .join("&");
+            window
+              .open(
+                `https://appleid.apple.com/auth/authorize?${queryString}`,
+                "_blank"
+              )
+              ?.focus();
+          }}
+        >
           <Icon.Apple className="w-5 h-5 fill-white" />
           <p>Log In with Apple</p>
         </button>
         <GoogleLogin
-          clientId={process.env.REACT_APP_CLIENT_ID!}
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}
           buttonText="Log In with Google"
           onSuccess={(response) =>
             googleHandler((response as GoogleLoginResponse).tokenId)

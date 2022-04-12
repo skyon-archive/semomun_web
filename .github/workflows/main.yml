@@ -23,6 +23,7 @@ jobs:
         run: npm run build
         env:
           REACT_APP_API_URL: https://saemomoon.com
+          REACT_APP_APPLE_CLIENT_ID: com.semomun.web
 
       - uses: kersvers/s3-sync-with-cloudfront-invalidation@v1.0.0
         with:
