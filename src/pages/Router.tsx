@@ -5,6 +5,7 @@ import { Header } from "../components/Header";
 import { useThinHeader } from "../hooks";
 //import { ChargeDonePage } from "./ChargeDonePage";
 //import { ChargePage } from "./ChargePage";
+import { ChargeTmp } from "./ChargeTmp";
 import { ContactPage } from "./ContactPage";
 import { FAQPage } from "./FAQPage";
 import { LandingPage } from "./LandingPage";
@@ -40,6 +41,7 @@ export const Router = () => {
           {/*<Route path="/purchase" element={<PurchasePage />} />*/}
           <Route path="/search" element={<SearchPage />} />
           {/*<Route path="/mypage/*" element={<MyPage />} />*/}
+          <Route path="/charge/tmp" element={<ChargeTmp />} />
           {/*<Route path="/charge" element={<ChargePage />} />*/}
           {/*<Route path="/charge/done" element={<ChargeDonePage />} />*/}
           <Route path="/*" element={<Navigate to="/" />} />
