@@ -1,6 +1,5 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { AdminRoute } from "../components/AdminRouter";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { useThinHeader } from "../hooks";
@@ -14,7 +13,6 @@ import { LoginPage } from "./LoginPage";
 import { MainPage } from "./MainPage";
 import { SearchPage } from "./SearchPage";
 import { TermsPage } from "./TermsPage";
-import { AdminPage } from "./AdminPage";
 //import { MyPage } from "./MyPage";
 //import { CartPage } from "./CartPage";
 //import { PurchasePage } from "./PurchasePage";
@@ -32,10 +30,6 @@ export const Router = () => {
         }`}
       >
         <Routes>
-          <Route
-            path="/admin/*"
-            element={<AdminRoute component={AdminPage} />}
-          />
           <Route path="/" element={<MainPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/faq" element={<FAQPage />} />
