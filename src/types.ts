@@ -12,3 +12,12 @@ export interface NestedWorkbooks {
   count: number;
   workbooks: Workbook[];
 }
+
+export enum Role {
+  USER = "USER",
+  ADMIN = "ADMIN",
+}
+
+export interface User {
+  role: string;
+}

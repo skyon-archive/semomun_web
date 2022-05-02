@@ -3,13 +3,16 @@ import { GoogleLogin, GoogleLoginResponse } from "react-google-login";
 import { Icon } from "../components/Icon";
 import { Semomun } from "../components/Semomun";
 import { api } from "../plugins/axios";
+import { refreshTokenState, tokenState } from "../plugins/ridge";
 
 export const LoginPage = () => {
   const googleHandler = (token: string) => {
-    console.log("success?", token);
     api
       .post("/auth/login", { token, type: "google" })
-      .then((response) => console.log("success", response))
+      .then(({ data }) => {
+        tokenState.set(data.accessToken);
+        refreshTokenState.set(data.refreshToken);
+      })
       .catch((err) => {
         if (err.response.data === "USER_NOT_EXIST")
           alert("회원가입되지 않은 유저입니다");
@@ -65,7 +68,8 @@ export const LoginPage = () => {
           onSuccess={(response) =>
             googleHandler((response as GoogleLoginResponse).tokenId)
           }
-          onFailure={() => {
+          onFailure={(err) => {
+            console.log(err);
             /*alert("구글 로그인 실패")*/
           }}
           render={(renderProps) => (

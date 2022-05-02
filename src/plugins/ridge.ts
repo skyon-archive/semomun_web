@@ -10,6 +10,16 @@ export const tokenState = newRidgeState<string | null>(null, {
   },
 });
 
+export const refreshTokenState = newRidgeState<string | null>(null, {
+  onSet: (newState) => {
+    if (newState) {
+      localStorage.setItem("refresh", newState);
+    } else {
+      localStorage.removeItem("refresh");
+    }
+  },
+});
+
 export const osState = newRidgeState<string>("");
 
 function setInitialState() {
