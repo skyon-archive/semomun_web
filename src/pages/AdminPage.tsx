@@ -128,11 +128,20 @@ export const AdminPage = () => {
       formData.append("config", configFile);
       const {
         data: { key, posts },
-      } = await api.post("/upload/config", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      } = await api
+        .post("/upload/config", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .catch((err) => {
+          throw new CustomError(err.response.data);
+        });
 
       await uploadImages(files, posts);
+
+      await api.post("/upload/confirm", { key }).catch((err) => {
+        throw new CustomError(`Error: ${err.response.data}`);
+      });
+      updateStatus(`'${folder.fullPath}' 완료`);
     } catch (err) {
       if (err instanceof CustomError) {
         updateStatus((err as CustomError).message);
