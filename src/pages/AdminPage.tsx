@@ -1,13 +1,13 @@
 import React, { useState } from "react";
+import yaml from "js-yaml";
 
 export const AdminPage = () => {
   const [status, setStatus] = useState<string[][]>([]);
 
-  const readEntriesPromise = async (reader: any) => {
-    return (await new Promise((resolve, reject) => {
+  const readEntriesPromise = (reader: any) =>
+    new Promise((resolve, reject) => {
       reader.readEntries(resolve, reject);
-    })) as unknown as Promise<any[]>;
-  };
+    }) as Promise<any[]>;
 
   const readFolder = async (folder: any) => {
     if (!folder?.isDirectory) {
@@ -48,10 +48,54 @@ export const AdminPage = () => {
         reject(new DOMException("Problem parsing input file."));
       };
       reader.onload = () => {
-        resolve(reader.result);
+        resolve(reader.result as string);
       };
       reader.readAsText(file);
+    }) as Promise<string>;
+  };
+
+  const validateImages = (files: FileSystemEntry[], config: any) => {
+    const fileNames = files.map((file) => file.name);
+
+    if (!fileNames.includes(config.workbook.bookcover))
+      return `'${config.workbook.bookcover}'가 없습니다.`;
+
+    const sections = config.sections;
+    if (!sections) return "config.yaml에 sectinos가 없습니다.";
+    let error = "";
+    sections.forEach((section: any) => {
+      if (!fileNames.includes(section.sectioncover)) {
+        error = `'${section.sectioncover}'가 없습니다.`;
+        return;
+      }
+      const views = section.views;
+      if (!views) {
+        error = "config.yaml에 views가 없습니다.";
+        return;
+      }
+      views.forEach((view: any) => {
+        if (view.material && !fileNames.includes(view.material)) {
+          error = `'${view.material}'가 없습니다.`;
+          return;
+        }
+        const problems = view.problems;
+        if (!problems) {
+          error = "config.yaml에 problems가 없습니다.";
+          return;
+        }
+        problems.forEach((problem: any) => {
+          if (!fileNames.includes(problem.content)) {
+            error = `'${problem.content}'가 없습니다.`;
+            return;
+          }
+          if (problem.explanation && !fileNames.includes(problem.explanation)) {
+            error = `'${problem.explanation}'가 없습니다.`;
+            return;
+          }
+        });
+      });
     });
+    return error;
   };
 
   const handleWorkbook = async (folder: FileSystemEntry) => {
@@ -69,7 +113,19 @@ export const AdminPage = () => {
       return;
     }
     const config = await readFile(await getFile(configFile));
-    console.log(config);
+    const configObject = yaml.load(config);
+    const validationError = validateImages(files, configObject);
+    if (validationError) {
+      setStatus((status) =>
+        status.concat([[validationError, new Date().toISOString()]])
+      );
+      return;
+    }
+    setStatus((status) =>
+      status.concat([
+        [`'${folder.fullPath}' 업로드 시작`, new Date().toISOString()],
+      ])
+    );
   };
 
   const handleDrop = async (e: React.DragEvent) => {
