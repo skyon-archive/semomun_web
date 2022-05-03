@@ -21,3 +21,10 @@ export enum Role {
 export interface User {
   role: string;
 }
+
+export class CustomError extends Error {
+  constructor(msg: string) {
+    super(msg);
+    Object.setPrototypeOf(this, CustomError.prototype);
+  }
+}

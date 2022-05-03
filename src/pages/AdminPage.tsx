@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import yaml from "js-yaml";
+import axios from "axios";
+import { api } from "../plugins/axios";
+import { CustomError } from "../types";
 
 export const AdminPage = () => {
   const [status, setStatus] = useState<string[][]>([]);
+
+  const updateStatus = (text: string) => {
+    setStatus((status) => status.concat([[text, new Date().toISOString()]]));
+  };
 
   const readEntriesPromise = (reader: any) =>
     new Promise((resolve, reject) => {
@@ -38,7 +45,9 @@ export const AdminPage = () => {
   };
 
   const getFile = (file: any) =>
-    new Promise((resolve, reject) => file.file(resolve, reject));
+    new Promise((resolve, reject) =>
+      file.file(resolve, reject)
+    ) as Promise<File>;
 
   const readFile = (file: any) => {
     const reader = new FileReader();
@@ -58,74 +67,77 @@ export const AdminPage = () => {
     const fileNames = files.map((file) => file.name);
 
     if (!fileNames.includes(config.workbook.bookcover))
-      return `'${config.workbook.bookcover}'가 없습니다.`;
+      throw new CustomError(`'${config.workbook.bookcover}'가 없습니다.`);
 
     const sections = config.sections;
-    if (!sections) return "config.yaml에 sectinos가 없습니다.";
-    let error = "";
+    if (!sections) throw new CustomError("config.yaml에 sectinos가 없습니다.");
     sections.forEach((section: any) => {
-      if (!fileNames.includes(section.sectioncover)) {
-        error = `'${section.sectioncover}'가 없습니다.`;
-        return;
-      }
+      if (!fileNames.includes(section.sectioncover))
+        throw new CustomError(`'${section.sectioncover}'가 없습니다.`);
       const views = section.views;
-      if (!views) {
-        error = "config.yaml에 views가 없습니다.";
-        return;
-      }
+      if (!views) throw new CustomError("config.yaml에 views가 없습니다.");
       views.forEach((view: any) => {
-        if (view.material && !fileNames.includes(view.material)) {
-          error = `'${view.material}'가 없습니다.`;
-          return;
-        }
+        if (view.material && !fileNames.includes(view.material))
+          throw new CustomError(`'${view.material}'가 없습니다.`);
         const problems = view.problems;
-        if (!problems) {
-          error = "config.yaml에 problems가 없습니다.";
-          return;
-        }
+        if (!problems)
+          throw new CustomError("config.yaml에 problems가 없습니다.");
         problems.forEach((problem: any) => {
-          if (!fileNames.includes(problem.content)) {
-            error = `'${problem.content}'가 없습니다.`;
-            return;
-          }
-          if (problem.explanation && !fileNames.includes(problem.explanation)) {
-            error = `'${problem.explanation}'가 없습니다.`;
-            return;
-          }
+          if (!fileNames.includes(problem.content))
+            throw new CustomError(`'${problem.content}'가 없습니다.`);
+          if (problem.explanation && !fileNames.includes(problem.explanation))
+            throw new CustomError(`'${problem.explanation}'가 없습니다.`);
         });
       });
     });
-    return error;
+  };
+
+  const uploadImages = async (files: File[], posts: any[]) => {
+    await Promise.all(
+      posts.map(async ({ post: { fields, url }, filename }) => {
+        const formData = new FormData();
+        Object.entries(fields).forEach(([name, value]) =>
+          formData.append(name, value as any)
+        );
+        const file = files.find((file) => file.name === filename);
+        if (!file) throw new CustomError(`'${filename}'가 없습니다.`);
+        formData.append("file", file);
+
+        await axios.post(url, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      })
+    );
+    updateStatus("이미지 업로드 완료");
   };
 
   const handleWorkbook = async (folder: FileSystemEntry) => {
-    const files = await readFolder(folder);
-    const configFile = files.find((file) => file.name === "config.yaml");
-    if (!configFile) {
-      setStatus((status) =>
-        status.concat([
-          [
-            `'${folder.fullPath}'에 config.yaml이 없습니다.`,
-            new Date().toISOString(),
-          ],
-        ])
-      );
-      return;
+    try {
+      const files = await readFolder(folder);
+      const configEntry = files.find((file) => file.name === "config.yaml");
+      if (!configEntry)
+        throw new CustomError(`'${folder.fullPath}'에 config.yaml이 없습니다.`);
+      const configFile = await getFile(configEntry);
+      const config = await readFile(configFile);
+      const configObject = yaml.load(config);
+
+      validateImages(files, configObject);
+      updateStatus(`'${folder.fullPath}' 업로드 시작`);
+
+      const formData = new FormData();
+      formData.append("config", configFile);
+      const {
+        data: { key, posts },
+      } = await api.post("/upload/config", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      await uploadImages(files, posts);
+    } catch (err) {
+      if (err instanceof CustomError) {
+        updateStatus((err as CustomError).message);
+      } else alert(err);
     }
-    const config = await readFile(await getFile(configFile));
-    const configObject = yaml.load(config);
-    const validationError = validateImages(files, configObject);
-    if (validationError) {
-      setStatus((status) =>
-        status.concat([[validationError, new Date().toISOString()]])
-      );
-      return;
-    }
-    setStatus((status) =>
-      status.concat([
-        [`'${folder.fullPath}' 업로드 시작`, new Date().toISOString()],
-      ])
-    );
   };
 
   const handleDrop = async (e: React.DragEvent) => {
@@ -146,9 +158,7 @@ export const AdminPage = () => {
       alert("올바른 폴더가 없습니다.");
       return;
     }
-    for (const innerFolder of innerFolders) {
-      await handleWorkbook(innerFolder);
-    }
+    for (const innerFolder of innerFolders) await handleWorkbook(innerFolder);
   };
 
   return (
