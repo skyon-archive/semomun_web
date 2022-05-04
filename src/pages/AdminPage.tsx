@@ -144,7 +144,7 @@ export const AdminPage = () => {
       updateStatus(`'${folder.fullPath}' 완료`);
     } catch (err) {
       if (err instanceof CustomError) {
-        updateStatus((err as CustomError).message);
+        updateStatus(`${folder.fullPath}: ${(err as CustomError).message}`);
       } else alert(err);
     }
   };
