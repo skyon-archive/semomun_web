@@ -14,7 +14,7 @@ export const AdminPage = () => {
   const readEntriesPromise = (reader: any) =>
     new Promise((resolve, reject) => {
       reader.readEntries(resolve, reject);
-    }) as Promise<any[]>;
+    }) as Promise<FileSystemEntry[]>;
 
   const readFolder = async (folder: any) => {
     if (!folder?.isDirectory) {
@@ -22,7 +22,7 @@ export const AdminPage = () => {
       return [];
     }
     const reader = folder.createReader();
-    const result: any[] = [];
+    const result: FileSystemEntry[] = [];
     while (true) {
       const entries = await readEntriesPromise(reader);
       if (entries.length === 0) return result;
@@ -44,7 +44,7 @@ export const AdminPage = () => {
     });
   };
 
-  const getFile = (file: any) =>
+  const getFile = (file: FileSystemFileEntry) =>
     new Promise((resolve, reject) =>
       file.file(resolve, reject)
     ) as Promise<File>;
@@ -92,7 +92,7 @@ export const AdminPage = () => {
     });
   };
 
-  const uploadImages = async (files: File[], posts: any[]) => {
+  const uploadImages = async (files: FileSystemEntry[], posts: any[]) => {
     await Promise.all(
       posts.map(async ({ post: { fields, url }, filename }) => {
         const formData = new FormData();
@@ -101,7 +101,7 @@ export const AdminPage = () => {
         );
         const file = files.find((file) => file.name === filename);
         if (!file) throw new CustomError(`'${filename}'가 없습니다.`);
-        formData.append("file", file);
+        formData.append("file", await getFile(file as FileSystemFileEntry));
 
         await axios.post(url, formData, {
           headers: { "Content-Type": "multipart/form-data" },
@@ -117,7 +117,7 @@ export const AdminPage = () => {
       const configEntry = files.find((file) => file.name === "config.yaml");
       if (!configEntry)
         throw new CustomError(`'${folder.fullPath}'에 config.yaml이 없습니다.`);
-      const configFile = await getFile(configEntry);
+      const configFile = await getFile(configEntry as FileSystemFileEntry);
       const config = await readFile(configFile);
       const configObject = yaml.load(config);
 
