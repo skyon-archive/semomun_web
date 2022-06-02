@@ -3,8 +3,10 @@ import yaml from "js-yaml";
 import axios from "axios";
 import { api } from "../plugins/axios";
 import { CustomError } from "../types";
+import { useNavigate } from "react-router-dom";
 
 export const AdminPage = () => {
+  const navigate = useNavigate();
   const [status, setStatus] = useState<string[][]>([]);
 
   const updateStatus = (text: string) => {
@@ -191,6 +193,26 @@ export const AdminPage = () => {
         >
           <p className="text-lg">업로드</p>
           <p>드래그 앤 드랍</p>
+        </div>
+        <div className="grid grid-cols-2 gap-4 h-10 mt-5">
+          <a
+            href="https://www.semomun.com/admin"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="flex justify-center items-center bg-slate-300 h-10 hover:bg-slate-400 hover:text-white hover:transition">
+              본 서버 admin 열기
+            </div>
+          </a>
+          <a
+            href="https://dev.semomun.com/admin"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="flex justify-center items-center bg-slate-300 h-10 hover:bg-slate-400 hover:text-white hover:transition">
+              테스트 서버 admin 열기
+            </div>
+          </a>
         </div>
       </div>
       <div className="w-2/4 h-full p-2">
