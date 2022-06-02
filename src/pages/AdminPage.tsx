@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import yaml from "js-yaml";
 import axios from "axios";
-import { api } from "../plugins/axios";
+import { api, rootapi } from "../plugins/axios";
 import { CustomError } from "../types";
 
-
 export const AdminPage = () => {
-
   const [status, setStatus] = useState<string[][]>([]);
+  const [dragDiv, setDragDiv] = useState<string>("");
 
   const updateStatus = (text: string) => {
     setStatus((status) => status.concat([[text, new Date().toISOString()]]));
@@ -128,15 +127,17 @@ export const AdminPage = () => {
 
       const formData = new FormData();
       formData.append("config", configFile);
-      const {
-        data: { key, posts },
-      } = await api
-        .post("/upload/config", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .catch((err) => {
-          throw new CustomError(err.response.data);
-        });
+
+        const {
+          data: { key, posts },
+        } = await rootapi
+          .post(dragDiv, formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          })
+          .catch((err) =>
+          {
+            throw new CustomError(err.response.data);
+          });
 
       await uploadImages(files, posts);
 
@@ -171,7 +172,14 @@ export const AdminPage = () => {
     }
     for (const innerFolder of innerFolders) await handleWorkbook(innerFolder);
   };
-
+  const handleDropRoot = (e: React.DragEvent<Element>) => {
+    setDragDiv("https://api.semomun.com/upload/config");
+    handleDrop(e);
+  };
+  const handleDropTest = (e: React.DragEvent<Element>) => {
+    setDragDiv("https://dev.api.semomun.com/upload/config");
+    handleDrop(e);
+  };
   return (
     <div className="w-screen h-screen flex">
       <div className="w-2/4 h-full flex-col px-2">
@@ -185,13 +193,23 @@ export const AdminPage = () => {
           <p className="pl-8 text-sm">ㄴ img_10001.png</p>
         </section>
         <div
-          className="w-full h-64 bg-gray-100 border border-black rounded flex flex-col justify-center items-center"
-          onDrop={handleDrop}
+          className="w-full h-64 mb-6 bg-gray-100 border border-black rounded flex flex-col justify-center items-center"
+          onDrop={handleDropRoot}
           onDragOver={(e) => {
             e.preventDefault();
           }}
         >
-          <p className="text-lg">업로드</p>
+          <p className="text-lg">본 서버 업로드</p>
+          <p>드래그 앤 드랍</p>
+        </div>
+        <div
+          className="w-full h-64 bg-gray-100 border border-black rounded flex flex-col justify-center items-center"
+          onDrop={handleDropTest}
+          onDragOver={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <p className="text-lg">테스트 서버 업로드</p>
           <p>드래그 앤 드랍</p>
         </div>
         <div className="grid grid-cols-2 gap-4 h-10 mt-5">
