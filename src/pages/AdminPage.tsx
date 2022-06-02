@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import yaml from "js-yaml";
 import axios from "axios";
-import { api, rootapi } from "../plugins/axios";
+import { rootapi } from "../plugins/axios";
 import { CustomError } from "../types";
 
 export const AdminPage = () => {
