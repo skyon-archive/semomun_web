@@ -8,6 +8,7 @@ export const AdminPage = () => {
   const [status, setStatus] = useState<string[][]>([]);
   const [dragDiv, setDragDiv] = useState<string>("");
 
+
   const updateStatus = (text: string) => {
     setStatus((status) => status.concat([[text, new Date().toISOString()]]));
   };
@@ -172,13 +173,15 @@ export const AdminPage = () => {
     }
     for (const innerFolder of innerFolders) await handleWorkbook(innerFolder);
   };
-  const handleDropRoot = (e: React.DragEvent<Element>) => {
+  const handleDropRoot = async (e: React.DragEvent<Element>) => {
     setDragDiv("https://api.semomun.com/upload");
-    handleDrop(e);
+
+    await handleDrop(e);
   };
-  const handleDropTest = (e: React.DragEvent<Element>) => {
+  const handleDropTest = async (e: React.DragEvent<Element>) => {
     setDragDiv("https://dev.api.semomun.com/upload");
-    handleDrop(e);
+
+    await handleDrop(e);
   };
   return (
     <div className="w-screen h-screen flex">
@@ -233,7 +236,7 @@ export const AdminPage = () => {
           </a>
         </div>
       </div>
-      <div className="w-2/4 h-full p-2">
+      <div className='w-2/4 h-full p-2'>
         <p>실행 결과</p>
         <section className="bg-gray-50 w-full h-full flex flex-col">
           {status.map((text) => (
