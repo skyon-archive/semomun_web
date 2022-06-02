@@ -158,16 +158,16 @@ export const Header = () => {
     );
 
   return (
-    <>
+    <div className="fixed w-full">
       <MobileHeader />
       {pathname.startsWith("/landing") ? (
         <LandingHeader />
       ) : (
         <div className="hidden md:flex max-w-container flex-col items-center border-b border-gray-300">
           <TopHeader />
-          {!thin && <BottomHeader />}
+          {/* {!thin && <BottomHeader />} */}
         </div>
       )}
-    </>
+    </div>
   );
 };

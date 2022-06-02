@@ -7,8 +7,9 @@ import { CustomError } from "../types";
 export const AdminPage = () => {
   const [status, setStatus] = useState<string[][]>([]);
   const [dragDiv, setDragDiv] = useState<string>(
-    "https://api.semomun.com/upload"
+    "https://dev.api.semomun.com/upload"
   );
+
 
   const updateStatus = (text: string) => {
     setStatus((status) => status.concat([[text, new Date().toISOString()]]));
@@ -130,15 +131,16 @@ export const AdminPage = () => {
       const formData = new FormData();
       formData.append("config", configFile);
 
-      const {
-        data: { key, posts },
-      } = await rootapi
-        .post(dragDiv + "/config", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .catch((err) => {
-          throw new CustomError(err.response.data);
-        });
+        const {
+          data: { key, posts },
+        } = await rootapi
+          .post(dragDiv+"/config", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          })
+          .catch((err) =>
+          {
+            throw new CustomError(err.response.data);
+          });
 
       await uploadImages(files, posts);
 
@@ -203,26 +205,28 @@ export const AdminPage = () => {
           }}
         >
           <p className="text-lg">
-            {dragDiv === "https://api.semomun.com/upload" ? "본" : "테스트"}{" "}
-            서버 업로드
+            {dragDiv === "https://api.semomun.com/upload" ? "본": "테스트"} 서버 업로드
           </p>
           <p>드래그 앤 드랍</p>
         </div>
 
         <div className="grid grid-cols-2 gap-4 h-10 mt-5">
-          <div
-            onClick={() => setDragDiv("https://api.semomun.com/upload")}
-            className="flex justify-center items-center bg-slate-300 h-10 hover:bg-slate-400 hover:text-white hover:transition"
-          >
-            본 서버 admin 업로드 모드
-          </div>
 
-          <div
-            onClick={() => setDragDiv("https://dev.api.semomun.com/upload")}
-            className="flex justify-center items-center bg-slate-300 h-10 hover:bg-slate-400 hover:text-white hover:transition"
-          >
-            테스트 서버 admin 업로드 모드
-          </div>
+            <div
+              onClick={() => setDragDiv("https://api.semomun.com/upload")}
+              className="flex justify-center items-center bg-slate-300 h-10 hover:bg-slate-400 hover:text-white hover:transition"
+            >
+              본 서버 admin 업로드 모드
+            </div>
+          
+
+            <div
+              onClick={() => setDragDiv("https://dev.api.semomun.com/upload")}
+              className="flex justify-center items-center bg-slate-300 h-10 hover:bg-slate-400 hover:text-white hover:transition"
+            >
+              테스트 서버 admin 업로드 모드
+            </div>
+
         </div>
       </div>
       <div className="w-2/4 h-full p-2">
