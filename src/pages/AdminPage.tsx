@@ -6,8 +6,9 @@ import { CustomError } from "../types";
 
 export const AdminPage = () => {
   const [status, setStatus] = useState<string[][]>([]);
-  const [dragDiv, setDragDiv] = useState<string>("");
-
+  const [dragDiv, setDragDiv] = useState<string>(
+    "https://api.semomun.com/upload"
+  );
 
   const updateStatus = (text: string) => {
     setStatus((status) => status.concat([[text, new Date().toISOString()]]));
@@ -129,16 +130,15 @@ export const AdminPage = () => {
       const formData = new FormData();
       formData.append("config", configFile);
 
-        const {
-          data: { key, posts },
-        } = await rootapi
-          .post(dragDiv+"/config", formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-          })
-          .catch((err) =>
-          {
-            throw new CustomError(err.response.data);
-          });
+      const {
+        data: { key, posts },
+      } = await rootapi
+        .post(dragDiv + "/config", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .catch((err) => {
+          throw new CustomError(err.response.data);
+        });
 
       await uploadImages(files, posts);
 
@@ -173,16 +173,16 @@ export const AdminPage = () => {
     }
     for (const innerFolder of innerFolders) await handleWorkbook(innerFolder);
   };
-  const handleDropRoot = async (e: React.DragEvent<Element>) => {
-    setDragDiv("https://api.semomun.com/upload");
+  // const handleDropRoot = async (e: React.DragEvent<Element>) => {
+  //   setDragDiv("https://api.semomun.com/upload");
 
-    await handleDrop(e);
-  };
-  const handleDropTest = async (e: React.DragEvent<Element>) => {
-    setDragDiv("https://dev.api.semomun.com/upload");
+  //   await handleDrop(e);
+  // };
+  // const handleDropTest = async (e: React.DragEvent<Element>) => {
+  //   setDragDiv("https://dev.api.semomun.com/upload");
 
-    await handleDrop(e);
-  };
+  //   await handleDrop(e);
+  // };
   return (
     <div className="w-screen h-screen flex">
       <div className="w-2/4 h-full flex-col px-2">
@@ -197,46 +197,35 @@ export const AdminPage = () => {
         </section>
         <div
           className="w-full h-64 mb-6 bg-gray-100 border border-black rounded flex flex-col justify-center items-center"
-          onDrop={handleDropRoot}
+          onDrop={handleDrop}
           onDragOver={(e) => {
             e.preventDefault();
           }}
         >
-          <p className="text-lg">본 서버 업로드</p>
+          <p className="text-lg">
+            {dragDiv === "https://api.semomun.com/upload" ? "본" : "테스트"}{" "}
+            서버 업로드
+          </p>
           <p>드래그 앤 드랍</p>
         </div>
-        <div
-          className="w-full h-64 bg-gray-100 border border-black rounded flex flex-col justify-center items-center"
-          onDrop={handleDropTest}
-          onDragOver={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <p className="text-lg">테스트 서버 업로드</p>
-          <p>드래그 앤 드랍</p>
-        </div>
+
         <div className="grid grid-cols-2 gap-4 h-10 mt-5">
-          <a
-            href="https://www.semomun.com/admin"
-            target="_blank"
-            rel="noopener noreferrer"
+          <div
+            onClick={() => setDragDiv("https://api.semomun.com/upload")}
+            className="flex justify-center items-center bg-slate-300 h-10 hover:bg-slate-400 hover:text-white hover:transition"
           >
-            <div className="flex justify-center items-center bg-slate-300 h-10 hover:bg-slate-400 hover:text-white hover:transition">
-              본 서버 admin 열기
-            </div>
-          </a>
-          <a
-            href="https://dev.semomun.com/admin"
-            target="_blank"
-            rel="noopener noreferrer"
+            본 서버 admin 업로드 모드
+          </div>
+
+          <div
+            onClick={() => setDragDiv("https://dev.api.semomun.com/upload")}
+            className="flex justify-center items-center bg-slate-300 h-10 hover:bg-slate-400 hover:text-white hover:transition"
           >
-            <div className="flex justify-center items-center bg-slate-300 h-10 hover:bg-slate-400 hover:text-white hover:transition">
-              테스트 서버 admin 열기
-            </div>
-          </a>
+            테스트 서버 admin 업로드 모드
+          </div>
         </div>
       </div>
-      <div className='w-2/4 h-full p-2'>
+      <div className="w-2/4 h-full p-2">
         <p>실행 결과</p>
         <section className="bg-gray-50 w-full h-full flex flex-col">
           {status.map((text) => (
