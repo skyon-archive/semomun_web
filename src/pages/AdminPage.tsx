@@ -131,7 +131,7 @@ export const AdminPage = () => {
         const {
           data: { key, posts },
         } = await rootapi
-          .post(dragDiv, formData, {
+          .post(dragDiv+"/config", formData, {
             headers: { "Content-Type": "multipart/form-data" },
           })
           .catch((err) =>
@@ -141,7 +141,7 @@ export const AdminPage = () => {
 
       await uploadImages(files, posts);
 
-      await api.post("/upload/confirm", { key }).catch((err) => {
+      await rootapi.post(dragDiv + "/confirm", { key }).catch((err) => {
         throw new CustomError(`Error: ${err.response.data}`);
       });
       updateStatus(`'${folder.fullPath}' 완료`);
@@ -173,11 +173,11 @@ export const AdminPage = () => {
     for (const innerFolder of innerFolders) await handleWorkbook(innerFolder);
   };
   const handleDropRoot = (e: React.DragEvent<Element>) => {
-    setDragDiv("https://api.semomun.com/upload/config");
+    setDragDiv("https://api.semomun.com/upload");
     handleDrop(e);
   };
   const handleDropTest = (e: React.DragEvent<Element>) => {
-    setDragDiv("https://dev.api.semomun.com/upload/config");
+    setDragDiv("https://dev.api.semomun.com/upload");
     handleDrop(e);
   };
   return (
