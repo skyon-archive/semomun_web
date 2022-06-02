@@ -3,10 +3,10 @@ import yaml from "js-yaml";
 import axios from "axios";
 import { api } from "../plugins/axios";
 import { CustomError } from "../types";
-import { useNavigate } from "react-router-dom";
+
 
 export const AdminPage = () => {
-  const navigate = useNavigate();
+
   const [status, setStatus] = useState<string[][]>([]);
 
   const updateStatus = (text: string) => {
