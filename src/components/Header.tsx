@@ -73,78 +73,78 @@ const TopHeader = () => {
   );
 };
 
-const BottomHeader = () => {
-  const navigate = useNavigate();
-  const { search } = useLocation();
-  const [keyword, setKeyword] = useState("");
-  const { authenticated } = useAuth();
+// const BottomHeader = () => {
+//   const navigate = useNavigate();
+//   const { search } = useLocation();
+//   const [keyword, setKeyword] = useState("");
+//   const { authenticated } = useAuth();
 
-  useEffect(() => {
-    const params = new URLSearchParams(search);
-    setKeyword(params.get("keyword") ?? "");
-  }, [search]);
+//   useEffect(() => {
+//     const params = new URLSearchParams(search);
+//     setKeyword(params.get("keyword") ?? "");
+//   }, [search]);
 
-  return (
-    <div className="max-w-6xl w-full h-24 flex items-center">
-      <div className="w-64 flex items-center justify-center flex-shrink-0">
-        <Link to="/">
-          <img src={logo} alt="logo" className="w-32" />
-        </Link>
-      </div>
-      <div className="flex items-center justify-center flex-grow flex-shrink min-w-[150px]">
-        <form
-          className="w-full max-w-[450px] h-10 rounded-full border-brand-1 border-4 flex justify-center"
-          onSubmit={(e) => {
-            e.preventDefault();
-            navigate(`/search?keyword=${keyword}`);
-          }}
-        >
-          <input
-            className="flex-grow mx-3 my-1 focus:outline-0 flex-shrink w-full"
-            onChange={(e) => setKeyword(e.target.value)}
-            value={keyword}
-          />
-          <button
-            type="submit"
-            className="w-16 text-xs border-l-4 border-brand-1"
-          >
-            검색
-          </button>
-        </form>
-      </div>
-      <div className="flex h-full space-x-3 justify-center items-center w-64 flex-shrink-0">
-        {authenticated ? (
-          <>
-            <button
-              className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium h-fit"
-              onClick={() => alert("결제 기능은 준비 중입니다 :)")}
-            >
-              페이 충전
-            </button>
-            <button
-              className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium h-fit"
-              onClick={() => alert("결제 기능은 준비 중입니다 :)")}
-            >
-              장바구니
-            </button>
-          </>
-        ) : (
-          <Link
-            className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium h-fit"
-            to="/login"
-          >
-            로그인
-          </Link>
-        )}
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div className="max-w-6xl w-full h-24 flex items-center">
+//       <div className="w-64 flex items-center justify-center flex-shrink-0">
+//         <Link to="/">
+//           <img src={logo} alt="logo" className="w-32" />
+//         </Link>
+//       </div>
+//       <div className="flex items-center justify-center flex-grow flex-shrink min-w-[150px]">
+//         <form
+//           className="w-full max-w-[450px] h-10 rounded-full border-brand-1 border-4 flex justify-center"
+//           onSubmit={(e) => {
+//             e.preventDefault();
+//             navigate(`/search?keyword=${keyword}`);
+//           }}
+//         >
+//           <input
+//             className="flex-grow mx-3 my-1 focus:outline-0 flex-shrink w-full"
+//             onChange={(e) => setKeyword(e.target.value)}
+//             value={keyword}
+//           />
+//           <button
+//             type="submit"
+//             className="w-16 text-xs border-l-4 border-brand-1"
+//           >
+//             검색
+//           </button>
+//         </form>
+//       </div>
+//       <div className="flex h-full space-x-3 justify-center items-center w-64 flex-shrink-0">
+//         {authenticated ? (
+//           <>
+//             <button
+//               className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium h-fit"
+//               onClick={() => alert("결제 기능은 준비 중입니다 :)")}
+//             >
+//               페이 충전
+//             </button>
+//             <button
+//               className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium h-fit"
+//               onClick={() => alert("결제 기능은 준비 중입니다 :)")}
+//             >
+//               장바구니
+//             </button>
+//           </>
+//         ) : (
+//           <Link
+//             className="text-brand-2 border-brand-1 border-2 rounded-md px-5 py-2 text-sm font-medium h-fit"
+//             to="/login"
+//           >
+//             로그인
+//           </Link>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
 
 export const Header = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const thin = useThinHeader();
+  // const thin = useThinHeader();
 
   if (pathname === "/mypage" || pathname === "/mypage/")
     return (
