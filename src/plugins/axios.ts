@@ -1,13 +1,7 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { tokenState } from "./ridge";
 
-interface Ires extends AxiosResponse {
-  method: string;
-  headers: {
-    authrozation: string;
-    refresh: string;
-  };
-}
+
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
