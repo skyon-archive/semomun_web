@@ -1,8 +1,9 @@
-import React, { FC, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import bannerImage from "../assets/images/banner1.png";
-import bannerImage2 from "../assets/images/landing1.png";
-import { useInterval, useThrottle } from "../hooks";
+// import React, { FC, useMemo, useRef, useState } from "react";
+// import { Link } from "react-router-dom";
+// import bannerImage from "../assets/images/banner1.png";
+// import bannerImage2 from "../assets/images/landing1.png";
+// import { useInterval, useThrottle } from "../hooks";
+import {FC} from "react"
 import { range } from "../utils";
 import img1 from "../assets/images/landing1.png";
 import img2 from "../assets/images/landing2.png";

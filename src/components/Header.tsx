@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import logo from "../assets/images/logo.png";
-import { useThinHeader, useAuth } from "../hooks";
+// import logo from "../assets/images/logo.png";
+// import { useThinHeader, useAuth } from "../hooks";
+import { useThinHeader } from "../hooks";
 import whiteLogo from "../assets/images/white_logo.png";
 import { Icon } from "./Icon";
 
