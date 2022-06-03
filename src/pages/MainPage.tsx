@@ -3,8 +3,8 @@
 // import bannerImage from "../assets/images/banner1.png";
 // import bannerImage2 from "../assets/images/landing1.png";
 // import { useInterval, useThrottle } from "../hooks";
-import {FC} from "react"
-import { range } from "../utils";
+// import {FC} from "react"
+// import { range } from "../utils";
 import img1 from "../assets/images/landing1.png";
 import img2 from "../assets/images/landing2.png";
 import img3 from "../assets/images/landing3.png";
@@ -47,29 +47,29 @@ import img5 from "../assets/images/landing5.png";
 //   );
 // };
 
-interface DotsProps {
-  count: number;
-  current: number;
-  size: number;
-  onClick?: (idx: number) => void;
-}
+// interface DotsProps {
+//   count: number;
+//   current: number;
+//   size: number;
+//   onClick?: (idx: number) => void;
+// }
 
-const Dots: FC<DotsProps> = ({ count, current, size, onClick }) => {
-  return (
-    <div className="flex absolute -translate-x-1/2 left-2/4 space-x-2 z-20 bottom-2">
-      {range(count).map((idx) => (
-        <div
-          key={idx}
-          className={`rounded-full h-1.5 w-1.5 ${
-            current === idx ? "bg-gray-200" : "bg-gray-400"
-          }`}
-          style={{ width: `${size}px`, height: `${size}px` }}
-          onClick={() => onClick?.(idx)}
-        />
-      ))}
-    </div>
-  );
-};
+// const Dots: FC<DotsProps> = ({ count, current, size, onClick }) => {
+//   return (
+//     <div className="flex absolute -translate-x-1/2 left-2/4 space-x-2 z-20 bottom-2">
+//       {range(count).map((idx) => (
+//         <div
+//           key={idx}
+//           className={`rounded-full h-1.5 w-1.5 ${
+//             current === idx ? "bg-gray-200" : "bg-gray-400"
+//           }`}
+//           style={{ width: `${size}px`, height: `${size}px` }}
+//           onClick={() => onClick?.(idx)}
+//         />
+//       ))}
+//     </div>
+//   );
+// };
 
 // const Banner = () => {
 //   const banner = useMemo(() => [bannerImage, bannerImage2], []);
@@ -171,8 +171,8 @@ const Dots: FC<DotsProps> = ({ count, current, size, onClick }) => {
 // };
 
 export const MainPage = () => {
-  const imageUrl =
-    "https://saemomoon.com/images/bookcover/256x256/5ad2d320-5e36-4fa6-a417-ed5daa7b644a.png";
+  // const imageUrl =
+  //   "https://saemomoon.com/images/bookcover/256x256/5ad2d320-5e36-4fa6-a417-ed5daa7b644a.png";
   // const bestSellers = [imageUrl];
   /*
   const tags = ["해커스어학연구소", "토익", "파고다교육그룹", "어쩌구"];
