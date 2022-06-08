@@ -134,7 +134,7 @@ export const AdminPage = () => {
       const {
         data: { key, posts },
       } = await rootapi
-        .post("http://192.168.0.138:8080/upload/config", formData, {
+        .post(dragDiv + "config", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .catch((err) => {
@@ -143,12 +143,10 @@ export const AdminPage = () => {
 
       await uploadImages(files, posts);
 
-      await rootapi
-        .post("http://192.168.0.138:8080/upload/confirm", { key: key })
-        .catch((err) => {
-          console.log(err.response);
-          throw new CustomError(`Error: ${err.response.data}`);
-        });
+      await rootapi.post(dragDiv + "/confirm", { key: key }).catch((err) => {
+        console.log(err.response);
+        throw new CustomError(`Error: ${err.response.data}`);
+      });
       updateStatus(`'${folder.fullPath}' 완료`);
     } catch (err) {
       if (err instanceof CustomError) {
@@ -203,8 +201,10 @@ export const AdminPage = () => {
           className={cls(
             "w-full h-64 mb-6  border border-black rounded flex flex-col justify-center items-center",
             dragDiv === "https://api.semomun.com/upload" ? "bg-yellow-300" : "",
-            dragDiv === "https://dev.api.semomun.com/upload" ? "bg-orange-300" : "",
-            dragDiv === "http://192.168.0.138:8080/upload" ? "bg-red-300" : "",
+            dragDiv === "https://dev.api.semomun.com/upload"
+              ? "bg-orange-300"
+              : "",
+            dragDiv === "http://192.168.0.138:8080/upload" ? "bg-red-300" : ""
           )}
           onDrop={handleDrop}
           onDragOver={(e) => {
