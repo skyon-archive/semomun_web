@@ -134,7 +134,7 @@ export const AdminPage = () => {
       const {
         data: { key, posts },
       } = await rootapi
-        .post(dragDiv + "config", formData, {
+        .post(dragDiv + "/config", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .catch((err) => {
