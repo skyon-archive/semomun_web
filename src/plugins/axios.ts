@@ -1,6 +1,8 @@
 import axios from "axios";
 import { tokenState } from "./ridge";
 
+
+
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
@@ -16,14 +18,37 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-api.interceptors.response.use(undefined, (error) => {
-  if (error.response.status === 401) {
-    tokenState.reset();
-  }
-  return Promise.reject(error);
-});
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const { config, status } = error.response;
 
-const rootapi = axios.create({})
+    if (status === 401) {
+      // tokenState.reset();
+      const oldAccessToken = localStorage.getItem("token");
+      const oldRefreshToken = localStorage.getItem("refresh");
+      if (oldAccessToken && oldRefreshToken) {
+        const {
+          data: { newAccessToken, newRefreshToken },
+        } = await axios(`${process.env.REACT_APP_SERVER_URL}/auth/refresh`, {
+          method: "get",
+          headers: {
+            authorization: oldAccessToken,
+            refresh: oldRefreshToken,
+          },
+        });
+        config.headers["authorization"] = `Bearer ${newAccessToken}`;
+        config.headers["refresh"] = newRefreshToken;
+        return axios(config);
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
+const rootapi = axios.create({});
 
 rootapi.interceptors.request.use((config) => {
   if (config.headers === undefined) config.headers = {};
@@ -36,11 +61,34 @@ rootapi.interceptors.request.use((config) => {
   return config;
 });
 
-rootapi.interceptors.response.use(undefined, (error) => {
-  if (error.response.status === 401) {
-    tokenState.reset();
+rootapi.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const { config, status } = error.response;
+
+    if (status === 401) {
+      // tokenState.reset();
+      const oldAccessToken = localStorage.getItem("token");
+      const oldRefreshToken = localStorage.getItem("refresh");
+      if (oldAccessToken && oldRefreshToken) {
+        const {
+          data: { newAccessToken, newRefreshToken },
+        } = await axios(`${process.env.REACT_APP_SERVER_URL}/auth/refresh`, {
+          method: "get",
+          headers: {
+            authorization: oldAccessToken,
+            refresh: oldRefreshToken,
+          },
+        });
+        config.headers["authorization"] = `Bearer ${newAccessToken}`;
+        config.headers["refresh"] = newRefreshToken;
+        return axios(config);
+      }
+    }
+    return Promise.reject(error);
   }
-  return Promise.reject(error);
-});
+);
 
 export { api, rootapi };
