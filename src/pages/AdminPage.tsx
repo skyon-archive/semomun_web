@@ -3,13 +3,13 @@ import yaml from "js-yaml";
 import axios from "axios";
 import { rootapi } from "../plugins/axios";
 import { CustomError } from "../types";
+import { cls } from "../utils";
 
 export const AdminPage = () => {
   const [status, setStatus] = useState<string[][]>([]);
   const [dragDiv, setDragDiv] = useState<string>(
     "https://dev.api.semomun.com/upload"
   );
-
 
   const updateStatus = (text: string) => {
     setStatus((status) => status.concat([[text, new Date().toISOString()]]));
@@ -131,22 +131,24 @@ export const AdminPage = () => {
       const formData = new FormData();
       formData.append("config", configFile);
 
-        const {
-          data: { key, posts },
-        } = await rootapi
-          .post(dragDiv+"/config", formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-          })
-          .catch((err) =>
-          {
-            throw new CustomError(err.response.data);
-          });
+      const {
+        data: { key, posts },
+      } = await rootapi
+        .post("http://192.168.0.138:8080/upload/config", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .catch((err) => {
+          throw new CustomError(err.response.data);
+        });
 
       await uploadImages(files, posts);
 
-      await rootapi.post(dragDiv + "/confirm", { key }).catch((err) => {
-        throw new CustomError(`Error: ${err.response.data}`);
-      });
+      await rootapi
+        .post("http://192.168.0.138:8080/upload/confirm", { key: key })
+        .catch((err) => {
+          console.log(err.response);
+          throw new CustomError(`Error: ${err.response.data}`);
+        });
       updateStatus(`'${folder.fullPath}' 완료`);
     } catch (err) {
       if (err instanceof CustomError) {
@@ -198,35 +200,46 @@ export const AdminPage = () => {
           <p className="pl-8 text-sm">ㄴ img_10001.png</p>
         </section>
         <div
-          className="w-full h-64 mb-6 bg-gray-100 border border-black rounded flex flex-col justify-center items-center"
+          className={cls(
+            "w-full h-64 mb-6  border border-black rounded flex flex-col justify-center items-center",
+            dragDiv === "https://api.semomun.com/upload" ? "bg-yellow-300" : "",
+            dragDiv === "https://dev.api.semomun.com/upload" ? "bg-orange-300" : "",
+            dragDiv === "http://192.168.0.138:8080/upload" ? "bg-red-300" : "",
+          )}
           onDrop={handleDrop}
           onDragOver={(e) => {
             e.preventDefault();
           }}
         >
           <p className="text-lg">
-            {dragDiv === "https://api.semomun.com/upload" ? "본": "테스트"} 서버 업로드
+            {dragDiv === "https://api.semomun.com/upload" ? "본" : ""}{" "}
+            {dragDiv === "https://dev.api.semomun.com/upload" ? "테스트" : ""}{" "}
+            {dragDiv === "http://192.168.0.138:8080/upload" ? "로컬" : ""} 서버
+            업로드
           </p>
           <p>드래그 앤 드랍</p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 h-10 mt-5">
+        <div className="grid grid-rows-3 gap-4 h-50 mt-5 ">
+          <div
+            onClick={() => setDragDiv("https://api.semomun.com/upload")}
+            className="flex justify-center items-center bg-yellow-300 h-10 hover:bg-yellow-400 hover:text-white hover:transition"
+          >
+            본 서버 admin 업로드 모드
+          </div>
 
-            <div
-              onClick={() => setDragDiv("https://api.semomun.com/upload")}
-              className="flex justify-center items-center bg-slate-300 h-10 hover:bg-slate-400 hover:text-white hover:transition"
-            >
-              본 서버 admin 업로드 모드
-            </div>
-          
-
-            <div
-              onClick={() => setDragDiv("https://dev.api.semomun.com/upload")}
-              className="flex justify-center items-center bg-slate-300 h-10 hover:bg-slate-400 hover:text-white hover:transition"
-            >
-              테스트 서버 admin 업로드 모드
-            </div>
-
+          <div
+            onClick={() => setDragDiv("https://dev.api.semomun.com/upload")}
+            className="flex justify-center items-center bg-orange-300 h-10 hover:bg-orange-400 hover:text-white hover:transition"
+          >
+            테스트 서버 admin 업로드 모드
+          </div>
+          <div
+            onClick={() => setDragDiv("http://192.168.0.138:8080/upload")}
+            className="flex justify-center items-center bg-red-300 h-10 hover:bg-red-400 hover:text-white hover:transition"
+          >
+            로컬 서버 admin 업로드 모드
+          </div>
         </div>
       </div>
       <div className="w-2/4 h-full p-2">

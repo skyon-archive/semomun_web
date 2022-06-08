@@ -9,3 +9,7 @@ export const zeroPad = (data: any, len: number) => {
 
 export const numberWithCommas = (x: number) =>
   x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+export function cls(...classnames: string[]) {
+  return classnames.join(" ");
+}
