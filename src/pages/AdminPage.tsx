@@ -213,7 +213,7 @@ export const AdminPage = () => {
         >
           <p className="text-xl">
             {dragDiv === "https://api.semomun.com/upload" ? "본" : ""}{" "}
-            {dragDiv === "https://dev.api.semomun.com/upload" ? "테스트" : ""}{" "}
+            {dragDiv === "https://dev.api.semomun.com/upload" ? "테스트" : ""}
             {dragDiv === "http://192.168.0.138:8080/upload" ? "로컬" : ""} 서버
             업로드
           </p>
