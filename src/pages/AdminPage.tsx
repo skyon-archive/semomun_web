@@ -211,7 +211,7 @@ export const AdminPage = () => {
             e.preventDefault();
           }}
         >
-          <p className="text-lg">
+          <p className="text-xl">
             {dragDiv === "https://api.semomun.com/upload" ? "본" : ""}{" "}
             {dragDiv === "https://dev.api.semomun.com/upload" ? "테스트" : ""}{" "}
             {dragDiv === "http://192.168.0.138:8080/upload" ? "로컬" : ""} 서버
